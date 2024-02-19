@@ -15,4 +15,4 @@ module list
 lscpu | grep "Model name"
 
 # run (srun: run job on cluster with provided resources/allocation)
-srun hostname
+srun hello_world/main
