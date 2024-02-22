@@ -15,5 +15,8 @@ module list
 # print CPU model
 lscpu | grep "Model name"
 
+#compile c++ program
+g++ main.cpp -o main
+
 # run (srun: run job on cluster with provided resources/allocation)
 srun main

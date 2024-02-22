@@ -7,7 +7,7 @@
 #SBATCH --cpus-per-task=1             # Number of CPUs per task
 #SBATCH --mem-per-cpu=1024            # Memory per CPU
 #SBATCH --time=00:01:00               # Wall clock time limit
-#SBATCH --constraint=EPYC_7742
+#SBATCH --constraint=EPYC_7763
 
 # load some modules & list loaded modules
 module load gcc
@@ -15,6 +15,9 @@ module list
 
 # print CPU model
 lscpu | grep "Model name"
+
+#compile c++ program
+g++ main.cpp -o main
 
 # run (srun: run job on cluster with provided resources/allocation)
 srun main
