@@ -6,7 +6,7 @@
 #SBATCH --cpus-per-task=1             # Number of CPUs per task
 #SBATCH --mem-per-cpu=1024            # Memory per CPU
 #SBATCH --time=01:00:00               # Wall clock time limit
-#SBATCH --constraint=EPCY_7H12        # select cpu's from Euler VII phase one
+#SBATCH --constraint=EPYC_7H12        # select cpu's from Euler VII phase one
 
 #get cache sizes
 lscpu
