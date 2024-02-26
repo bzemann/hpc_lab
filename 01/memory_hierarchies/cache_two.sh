@@ -1,7 +1,7 @@
 #!/bin/bash
-#SBATCH --job-name=mem_job_two        # Job name    (default: sbatch)
-#SBATCH --output=mem_job_two-%j.out   # Output file (default: slurm-%j.out)
-#SBATCH --error=mem_job_two-%j.err    # Error file  (default: slurm-%j.out)
+#SBATCH --job-name=cache_two          # Job name    (default: sbatch)
+#SBATCH --output=cache_two-%j.out     # Output file (default: slurm-%j.out)
+#SBATCH --error=cache_two-%j.err      # Error file  (default: slurm-%j.out)
 #SBATCH --ntasks=1                    # Number of tasks
 #SBATCH --cpus-per-task=1             # Number of CPUs per task
 #SBATCH --mem-per-cpu=1024            # Memory per CPU
