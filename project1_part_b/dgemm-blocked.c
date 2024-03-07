@@ -37,3 +37,4 @@ void square_dgemm(int n, double *A, double *B, double *C) {
       }
     }
   }
+}
