@@ -2,7 +2,7 @@
 
 # Euler GCC config (module load gcc)
 CC = gcc                         # compiler (& linker)
-OPT = -O0                        # optimization flags (you may add more)
+OPT = -O3                        # optimization flags (you may add more)
 CFLAGS = -Wall -std=gnu99 $(OPT) # standard compiler flags
 LDLIBS = -L${OPENBLAS_ROOT} \
          -lopenblas              # linker options
