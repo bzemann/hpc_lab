@@ -1,4 +1,5 @@
 const char *dgemm_desc = "Blocked dgemm.";
+#define min(a, b) (((a) < (b)) ? (a) : (b))
 
 /* This routine performs a dgemm operation
  *
@@ -26,10 +27,10 @@ void square_dgemm(int n, double *A, double *B, double *C) {
     for (int j = 0; j < n; j += block_size) {
       for (int k = 0; k < n; k += block_size) {
         // block matrix multiplication
-        for (int i1 = i; i1 < i + block_size; i1++) {
-          for (int j1 = j; j1 < j + block_size; j1++) {
+        for (int i1 = i; i1 < min(i + block_size, n); i1++) {
+          for (int j1 = j; j1 < min(j + block_size, n); j1++) {
             double b = B[i1 + j1 * n];
-            for (int k1 = k; k1 < k + block_size; k1++) {
+            for (int k1 = k; k1 < min(k + block_size, n); k1++) {
               C[k1 + j1 * n] += A[k1 + i1 * n] * b;
             }
           }
