@@ -10,10 +10,24 @@ const char* dgemm_desc = "Blocked dgemm.";
 void square_dgemm(int n, double* A, double* B, double* C) {
   // TODO: Implement the blocking optimization
   //       (The following is a placeholder naive three-loop dgemm)
-  for (int i = 0; i < n; ++i) {
-    for (int j = 0; j < n; ++j) {
-      for(int k = 0; k < n; ++k) {
-	C[i+j*n] += A[i+k*n] * B[k+j*n];
+  //column by column matrix multiplication
+//   for (int i = 0; i < n; ++i) {
+//     for (int j = 0; j < n; ++j) {
+//       for(int k = 0; k < n; ++k) {
+//         C[k+j*n] += A[k+i*n] * B[i+j*n];
+//       }
+//     }
+//   }
+// }
+
+//blocked matrix multiplication
+int block_size = 146;
+for(int i = 0; i < n; i += block_size){
+  for(int j = 0; j < n; j += block_size){
+    for(int k = 0; k < n; k +=  block_size){
+      // block matrix multiplication
+      for(int i1 = i; i1 < i + block_size; i1++){
+        
       }
     }
   }

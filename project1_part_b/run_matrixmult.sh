@@ -19,14 +19,14 @@ export MKL_NUM_THREADS=1
 make clean
 make
 
-echo "==== benchmark-naive ======================"
-./benchmark-naive | tee timing_basic_dgemm.data
+echo "==== benchmark-blocked ===================="
+./benchmark-blocked | tee timing_blocked_dgemm.data
 echo
 echo "==== benchmark-blas ======================="
 ./benchmark-blas | tee timing_blas_dgemm.data
 echo
-echo "==== benchmark-blocked ===================="
-./benchmark-blocked | tee timing_blocked_dgemm.data
+echo "==== benchmark-naive ======================"
+./benchmark-naive | tee timing_basic_dgemm.data
 
 echo
 echo "==== plot results ========================="
