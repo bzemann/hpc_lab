@@ -1,4 +1,7 @@
 const char *dgemm_desc = "Blocked dgemm.";
+
+#pragma GCC optimize ("-O3,-ffast-math")
+
 #define min(a, b) (((a) < (b)) ? (a) : (b))
 
 /* This routine performs a dgemm operation
