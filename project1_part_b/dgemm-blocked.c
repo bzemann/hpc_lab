@@ -18,8 +18,8 @@ void square_dgemm(int n, double *restrict A, double *restrict B, double *restric
 
   //int block_size = 200;
   int block_size1 = 146;                                                   //opt for L2
-  int block_size2 = 36                                                   //opt for L1d
-  //int block_size = 100
+  int block_size2 = 36;                                                   //opt for L1d
+  //int block_size = 100;
   for (int i = 0; i < n; i += block_size1) {
     for (int j = 0; j < n; j += block_size1) {
       for (int k = 0; k < n; k += block_size1) {
