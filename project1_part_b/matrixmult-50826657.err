@@ -1,0 +1,18 @@
+
+The following have been reloaded with a version change:
+  1) gcc/4.8.5 => gcc/11.4.0
+
+
+Currently Loaded Modules:
+  1) StdEnv   2) gcc/11.4.0   3) openblas/0.3.20
+
+ 
+
+dgemm-blocked.c:5:9: warning: bad option '-f -ffast-math' to pragma 'optimize' [-Wpragmas]
+    5 | #pragma GCC optimize ("-O3, -ffast-math, -finline")
+      |         ^~~
+dgemm-blocked.c:5:9: warning: bad option '-f -finline' to pragma 'optimize' [-Wpragmas]
+dgemm-blocked.c:16:1: warning: bad option '-f -ffast-math' to attribute 'optimize' [-Wattributes]
+   16 | void square_dgemm(int n, double *A, double *B, double *C) {
+      | ^~~~
+dgemm-blocked.c:16:1: warning: bad option '-f -finline' to attribute 'optimize' [-Wattributes]
