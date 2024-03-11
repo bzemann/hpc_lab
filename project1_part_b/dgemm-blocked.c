@@ -1,7 +1,8 @@
 const char *dgemm_desc = "Blocked dgemm.";
 
-#pragma GCC optimize ("-O3,-ffast-math")
+//#pragma GCC optimize ("-O3,-fast-math")
 //#pragma GCC optimize ("-O3")
+#pragma GCC optimize ("-O3, -fast-math, inline")
 
 #define min(a, b) (((a) < (b)) ? (a) : (b))
 
@@ -14,8 +15,9 @@ const char *dgemm_desc = "Blocked dgemm.";
  */
 void square_dgemm(int n, double *A, double *B, double *C) {
   // blocked matrix multiplication
-  int block_size = 200;
-  //int block_size = 146                                                  //opt for L2
+
+  //int block_size = 200;
+  int block_size = 146;                                                   //opt for L2
   //int block_size = 36                                                   //opt for L1d
   //int block_size = 100
   for (int i = 0; i < n; i += block_size) {
