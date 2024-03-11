@@ -25,14 +25,14 @@ void square_dgemm(int n, double *restrict A, double *restrict B, double *restric
       for (int k = 0; k < n; k += block_size1) {
         // block matrix multiplication
         //blocking for L2
-        for(int i1 = i; i1 < min(i + block_size1, n); i1++){
-          for(int j1 = j; j1 < min(j + block_size1, n); j1++){
-            for(int k1 = k; k1 < min(k + block_size1, n); k1++){
+        for(int i1 = i; i1 < min(i + block_size1, n); i1 += block_size2){
+          for(int j1 = j; j1 < min(j + block_size1, n); j1 += block_size2){
+            for(int k1 = k; k1 < min(k + block_size1, n); k1 += block_size2){
               //blocking for L1
-              for(int i2 = i1; i2 < min(i1 + block_size2, block_size1); i2++){
-                for(int j2 = j1; j2 < min(j1 + block_size2, block_size1); j2++){
+              for(int i2 = i1; i2 < min(i1 + block_size2, n); i2++){
+                for(int j2 = j1; j2 < min(j1 + block_size2, n); j2++){
                   double b = B[i2 + j2 * n];
-                  for(int k2 = k1; k2 < min(k1 + block_size2, block_size1); k2++){
+                  for(int k2 = k1; k2 < min(k1 + block_size2, n); k2++){
                     C[k2 + j2 * n] += A[k2 + i2 * n] * b;
                   }
                 }
