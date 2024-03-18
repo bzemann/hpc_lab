@@ -21,11 +21,11 @@ for ((i=0; i<=5; i++))
 do
   OMP_NUM_THREADS=$((2**i))
   echo "Running with OMP_NUM_THREADS=$OMP_NUM_THREADS"
-  echo "pi serial"
+  echo "pi_serial"
   export OMP_NUM_THREADS
   ./pi_serial
-  echo "pi omp critical"
+  echo "pi_omp_critical"
   ./pi_omp_critical
-  echo "pi omp reduction"
+  echo "pi_omp_reduction"
   ./pi_omp_reduction
 done
