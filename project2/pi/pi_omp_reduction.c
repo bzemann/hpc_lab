@@ -13,7 +13,7 @@ int main(int argc, char *argv[]) {
   time_start = walltime();
   h = 1./N;
   sum = 0.;
-  #pragma omp parallel reductio(+:sum)
+  #pragma omp parallel reduction(+:sum)
   for (int i = 0; i < N; ++i) {
     double x = (i + 0.5)*h;
     sum += 4.0 / (1.0 + x*x);
