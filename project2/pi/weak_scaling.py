@@ -34,8 +34,8 @@ print("pi_serial_times:", serial_dt)
 print("pi_omp_critical_times:", critical_dt)
 print("pi_omp_reduction_times:", reduction_dt)
 
-critical_speedup = serial_dt[0] / np.array(critical_dt)
-reduction_speedup = serial_dt[0] / np.array(reduction_dt)
+critical_speedup = serial_dt / np.array(critical_dt)
+reduction_speedup = serial_dt / np.array(reduction_dt)
 
 plt.plot(nthreads, critical_speedup, label="critical")
 plt.plot(nthreads, reduction_speedup, label="reduction")
