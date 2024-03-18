@@ -22,5 +22,11 @@ do
   OMP_NUM_THREADS=$((2**i))
   echo "Running with OMP_NUM_THREADS=$OMP_NUM_THREADS"
   export OMP_NUM_THREADS
-  ./hello_omp
+  N=$((OMP_NUM_THREADS*1000000))
+  echo "pi_serial"
+  ./pi_serial ${N}
+  echo "pi_omp_critical"
+  ./pi_omp_critical ${N}
+  echo "pi_omp_reduction"
+  ./pi_omp_reduction ${N}
 done
