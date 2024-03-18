@@ -1,0 +1,50 @@
+rm -f *.o pi_serial pi_omp_critical pi_omp_reduction *.data
+/cluster/apps/gcc-4.8.5/gcc-11.4.0-xxnwhndqaqpuzs4l4ty4yj5tg2cexcg4/bin/gcc -c -O2 -fopenmp pi_serial.c
+/cluster/apps/gcc-4.8.5/gcc-11.4.0-xxnwhndqaqpuzs4l4ty4yj5tg2cexcg4/bin/gcc -c -O2 -fopenmp walltime.c
+/cluster/apps/gcc-4.8.5/gcc-11.4.0-xxnwhndqaqpuzs4l4ty4yj5tg2cexcg4/bin/gcc -O2 -fopenmp pi_serial.o walltime.o -o pi_serial
+/cluster/apps/gcc-4.8.5/gcc-11.4.0-xxnwhndqaqpuzs4l4ty4yj5tg2cexcg4/bin/gcc -c -O2 -fopenmp pi_omp_critical.c
+/cluster/apps/gcc-4.8.5/gcc-11.4.0-xxnwhndqaqpuzs4l4ty4yj5tg2cexcg4/bin/gcc -O2 -fopenmp pi_omp_critical.o walltime.o -o pi_omp_critical
+/cluster/apps/gcc-4.8.5/gcc-11.4.0-xxnwhndqaqpuzs4l4ty4yj5tg2cexcg4/bin/gcc -c -O2 -fopenmp pi_omp_reduction.c
+/cluster/apps/gcc-4.8.5/gcc-11.4.0-xxnwhndqaqpuzs4l4ty4yj5tg2cexcg4/bin/gcc -O2 -fopenmp pi_omp_reduction.o walltime.o -o pi_omp_reduction
+Running with OMP_NUM_THREADS=1
+pi serial
+pi = 3.141592653589764, N =   1000000, time = 0.00229332 secs
+pi omp critical
+pi = 3.141592653589764, N =   1000000, time = 0.00190763 secs
+pi omp reduction
+pi = 3.141592653589764, N =   1000000, time = 0.00305244 secs
+Running with OMP_NUM_THREADS=2
+pi serial
+pi = 3.141592653589764, N =   1000000, time = 0.00309458 secs
+pi omp critical
+pi = 3.141592653589899, N =   1000000, time = 0.00162086 secs
+pi omp reduction
+pi = 6.283185307179529, N =   1000000, time = 0.00261639 secs
+Running with OMP_NUM_THREADS=4
+pi serial
+pi = 3.141592653589764, N =   1000000, time = 0.00253133 secs
+pi omp critical
+pi = 3.141592653589875, N =   1000000, time = 0.00093386 secs
+pi omp reduction
+pi = 12.566370614359057, N =   1000000, time = 0.00324302 secs
+Running with OMP_NUM_THREADS=8
+pi serial
+pi = 3.141592653589764, N =   1000000, time = 0.00228050 secs
+pi omp critical
+pi = 3.141592653589871, N =   1000000, time = 0.01279903 secs
+pi omp reduction
+pi = 25.132741228718114, N =   1000000, time = 0.01173824 secs
+Running with OMP_NUM_THREADS=16
+pi serial
+pi = 3.141592653589764, N =   1000000, time = 0.00293005 secs
+pi omp critical
+pi = 3.141592653589872, N =   1000000, time = 0.02622992 secs
+pi omp reduction
+pi = 50.265482457436214, N =   1000000, time = 0.01868393 secs
+Running with OMP_NUM_THREADS=32
+pi serial
+pi = 3.141592653589764, N =   1000000, time = 0.00190271 secs
+pi omp critical
+pi = 3.141592653589874, N =   1000000, time = 0.03387630 secs
+pi omp reduction
+pi = 100.530964914872499, N =   1000000, time = 0.04783954 secs
