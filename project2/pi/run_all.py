@@ -13,7 +13,7 @@ def plot_strong(arr_time_average_ser, arr_time_average_crit, arr_time_average_re
     plt.ylabel('speedup')
     plt.legend()
     plt.title('Strong Scaling')
-    plt.savefig('strong.pdf')
+    plt.savefig('strong_speed.pdf')
                       
 def plot_weak(arr_time_average_ser, arr_time_average_crit, arr_time_average_red, n_threads):
     plt.clf()
@@ -26,7 +26,22 @@ def plot_weak(arr_time_average_ser, arr_time_average_crit, arr_time_average_red,
     plt.ylabel('speedup')
     plt.legend()
     plt.title('Weak Scaling')
-    plt.savefig('weak.pdf')
+    plt.savefig('weak_speed.pdf')
+    
+def plot_eff_weak(time_aver_crit1, time_aver_red1, arr_time_aver_crit, arr_time_aver_red, n_threads):
+    plt.clf()
+    eff_crit = time_aver_crit1 / np.array(arr_time_aver_crit) 
+    eff_red = time_aver_red1 / np.array(arr_time_aver_red) 
+    
+    plt.plot(n_threads, eff_crit, label='critical')
+    plt.plot(n_threads, eff_red, label='reduction')
+    plt.axhline(y=1, color='r', linestyle='--', label='ideal critical')
+    plt.xlabel('nthreads')
+    plt.ylabel('efficiency')
+    plt.legend()
+    plt.title('Weak Scaling')
+    plt.savefig('weak_eff.pdf')
+    
 
 def run_strong(n_threads, exe_path, n_runs, time_average):
     total_time = 0
@@ -110,3 +125,8 @@ if __name__ == "__main__":
               critical_time_average_weak, 
               reduction_time_average_weak,
               n_threads)
+    plot_eff_weak(critical_time_average_weak[0],
+                  reduction_time_average_weak[0],  
+                  critical_time_average_weak,
+                  reduction_time_average_weak,
+                  n_threads)
