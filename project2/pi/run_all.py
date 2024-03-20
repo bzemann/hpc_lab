@@ -64,7 +64,7 @@ def run_weak(n_threads, exe_path, n_runs, time_average):
     env = {'OMP_NUM_THREADS': str(n_threads)}
 
     for _ in range(n_runs):
-        arg = 1000000 * n_threads
+        arg = 10000000 * n_threads
         arg_str = str(arg)
         result = sp.run([exe_path, arg_str], env=env, stdout=sp.PIPE)
         output = result.stdout.decode('utf-8')

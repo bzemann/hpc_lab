@@ -4,7 +4,7 @@
 #include <omp.h>
 
 int main(int argc, char *argv[]) {
-  long int N = 1000000;
+  long int N = 10000000;
   double time_start, h, sum, pi;
 
   if ( argc > 1 ) N = atol(argv[1]);
