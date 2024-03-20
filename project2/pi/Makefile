@@ -1,4 +1,4 @@
-CC     ?= gcc
+CC     = gcc-13
 CFLAGS  = -O2 -fopenmp
 
 all: pi_serial pi_omp_critical pi_omp_reduction
