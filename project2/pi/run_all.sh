@@ -12,6 +12,8 @@
 module load gcc
 module load python/3.11.6
 
+module list
+
 # Compile
 make clean
 make

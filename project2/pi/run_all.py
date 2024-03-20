@@ -16,6 +16,7 @@ def plot_strong(arr_time_average_ser, arr_time_average_crit, arr_time_average_re
     plt.savefig('strong.pdf')
                       
 def plot_weak(arr_time_average_ser, arr_time_average_crit, arr_time_average_red, n_threads):
+    plt.clf()
     speedup_critical = np.array(arr_time_average_ser) / np.array(arr_time_average_crit)
     speedup_reduction = np.array(arr_time_average_ser) / np.array(arr_time_average_red)
    
@@ -74,7 +75,7 @@ if __name__ == "__main__":
     n_threads = []
 
     print("Strong Scaling")
-    for i in range(6):
+    for i in range(8):
         num_threads = 2 ** i
         n_threads.append(num_threads)
         
@@ -93,7 +94,7 @@ if __name__ == "__main__":
                 n_threads)
 
     print("Weak Scaling")
-    for i in range(6):
+    for i in range(8):
         num_threads = 2 ** i
         
         print(f"Running with OMP_NUM_THREADS = {num_threads}")         
