@@ -22,7 +22,8 @@ int main(int argc, char **argv) {
   long i, j;
 
   double time_start = walltime();
-  // do the calculation
+  
+  //calculation serial
   cy = MIN_Y;
   for (j = 0; j < IMAGE_HEIGHT; j++) {
     cx = MIN_X;
@@ -35,18 +36,32 @@ int main(int argc, char **argv) {
       // count the iterations until the orbit leaves the circle |z|=2.
       // stop if the number of iterations exceeds the bound MAX_ITERS.
       int n = 0;
-      // TODO
-      // >>>>>>>> CODE IS MISSING
-
-      // <<<<<<<< CODE IS MISSING
+      for(; n < MAX_ITERS; ++n){
+        if(x2 + y2 >= 2.0 * 2.0) break;
+        y = 2 * x * y + cy;
+        x = x2 - y2 + cx;
+        
+        x2 = x * x;
+        y2 = y * y;
+        
+        ++nTotalIterationsCount;               
+      }               
       // n indicates if the point belongs to the mandelbrot set
       // plot the number of iterations at point (i, j)
       int c = ((long)n * 255) / MAX_ITERS;
+      //printf("value at i = %ld, j = %ld: %d\n", i, j, c);
+      //printf("i = %ld => %f, j = %ld => %f\n", i, cx, j, cy);
       png_plot(pPng, i, j, c, c, c);
       cx += fDeltaX;
     }
     cy += fDeltaY;
+    //precentage of outer loop completed, only for when runned locally
+    /*if(j % (IMAGE_HEIGHT / 10) == 0){
+      printf("procent: %g\n", (j * 100 / (double)IMAGE_HEIGHT));
+    }*/    
   }
+  
+  
   double time_end = walltime();
 
   // print benchmark data
