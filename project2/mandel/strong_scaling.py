@@ -13,7 +13,7 @@ def plot_strong(n_threads, arr_time_ser_avg, arr_time_par_crit_avg):
     plt.title('Strong Scaling')
     plt.savefig('strong.pdf')
 
-def run_ser(n_threads, n_runs, exe_path, time_average):
+def run_ser(n_threads, n_runs, exe_path, time_avg_ser):
     tot_time = 0
     env = {'OMP_NUM_THREADS': str(n_threads)}
     
@@ -22,13 +22,14 @@ def run_ser(n_threads, n_runs, exe_path, time_average):
         output = result.stdout.decode('utf-8')
         print(output)
         
-        match = re.search(r'Total Time:\s+(\d+.\d+)\s+seconds', output)
+        match = re.search(r'Total time:\s+(\d+\.\d+)\s+seconds', output)
         if match:
             tot_time += float(match.group(1))
     
-    time_average = tot_time / n_runs
+    time_avg_ser = tot_time / n_runs
+    
 
-def run_par(n_threads, n_runs, exe_path, time_average):
+def run_par(n_threads, n_runs, exe_path, arr_time_avg_par):
     tot_time = 0
     env = {'OMP_NUM_THREADS': str(n_threads)}
     
@@ -37,13 +38,13 @@ def run_par(n_threads, n_runs, exe_path, time_average):
         output = result.stdout.decode('utf-8')
         print(output)
         
-        match = re.search(r'Total Time:\s+(\d+.\d+)\s+seconds', output)
+        match = re.search(r'Total time:\s+(\d+\.\d+)\s+seconds', output)
         if match:
             tot_time += float(match.group(1))
     
     avg_time = tot_time / n_runs
-    time_average.append(avg_time)
-
+    arr_time_avg_par.append(avg_time)
+    
 if __name__ == "__main__":
     serial_time_avg = 0
     par_crit_tim_avg = []
@@ -51,16 +52,21 @@ if __name__ == "__main__":
     n_threads = []
     
     print("Strong scaling")
-    for i in range(8):
+    for i in range(7):
         num_threads = 2 ** i
         n_threads.append(num_threads)
         
         print(f"Running with OMP_NUM_THREADS = {num_threads}")
         print("Parallel Critical")
-        run_par(num_threads, 6, "./mandel_par_crit", par_crit_tim_avg)
+        time_par = run_par(num_threads, 6, "./mandel_par_crit", par_crit_tim_avg)
+        par_crit_tim_avg.append(time_par)
         
+    print(f"number threads: {n_threads}")
+    print(f"parallel time avg: {par_crit_tim_avg}\n")
     print("Serial")
-    run_ser(1, 6, "./mandel_seq", serial_time_avg)
-
+    serial_time_avg = run_ser(1, 6, "./mandel_seq", serial_time_avg)
+    
+    
+    print(f"serial time avg: {serial_time_avg}")
     print("Begin with the ploting")
     plot_strong(n_threads, serial_time_avg, par_crit_tim_avg)

@@ -10,7 +10,7 @@
 #include "walltime.h"
 
 int main(int argc, char **argv) {
-  png_data *pPng = png_create(IMAGE_WIDTH, IMAGE_HEIGHT);
+  //png_data *pPng = png_create(IMAGE_WIDTH, IMAGE_HEIGHT);
 
   double x, y, x2, y2, cx, cy;
 
