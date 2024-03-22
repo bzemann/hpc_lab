@@ -10,7 +10,7 @@ def plot_strong(n_threads, arr_time_ser_avg, arr_time_par_crit_avg):
     plt.xlabel('nthreads')
     plt.ylabel('speedup')
     plt.legend()
-    plt.titel('Strong Scaling')
+    plt.title('Strong Scaling')
     plt.savefig('strong.pdf')
 
 def run_ser(n_threads, n_runs, exe_path, time_average):
@@ -51,7 +51,7 @@ if __name__ == "__main__":
     n_threads = []
     
     print("Strong scaling")
-    for i in range(7):
+    for i in range(8):
         num_threads = 2 ** i
         n_threads.append(num_threads)
         
