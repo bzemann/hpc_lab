@@ -60,7 +60,7 @@ if __name__ == "__main__":
         
         print(f"Running with OMP_NUM_THREADS = {num_threads}")
         print("Parallel Critical")
-        time_par = run_par(num_threads, 6, "./mandel_par_crit", par_crit_tim_avg)
+        run_par(num_threads, 6, "./mandel_par_crit", par_crit_tim_avg)
         #print(f"par time arr: {par_crit_tim_avg}")
         
     print("Serial")
