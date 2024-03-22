@@ -51,15 +51,16 @@ if __name__ == "__main__":
     n_threads = []
     
     print("Strong scaling")
-    for i in range(8):
+    for i in range(7):
         num_threads = 2 ** i
         n_threads.append(num_threads)
         
         print(f"Running with OMP_NUM_THREADS = {num_threads}")
         print("Parallel Critical")
-        run_par(num_threads, 10, "./mandel_par_crit", par_crit_tim_avg)
+        run_par(num_threads, 6, "./mandel_par_crit", par_crit_tim_avg)
         
     print("Serial")
-    run_ser(1, 10, "./mandel_seq", serial_time_avg)
+    run_ser(1, 6, "./mandel_seq", serial_time_avg)
 
+    print("Begin with the ploting")
     plot_strong(n_threads, serial_time_avg, par_crit_tim_avg)
