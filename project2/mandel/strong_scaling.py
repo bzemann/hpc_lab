@@ -61,11 +61,9 @@ if __name__ == "__main__":
         time_par = run_par(num_threads, 6, "./mandel_par_crit", par_crit_tim_avg)
         par_crit_tim_avg.append(time_par)
         
-    print(f"number threads: {n_threads}")
-    print(f"parallel time avg: {par_crit_tim_avg}\n")
     print("Serial")
-    serial_time_avg = run_ser(1, 6, "./mandel_seq", serial_time_avg)
-    
+    #serial_time_avg = run_ser(1, 6, "./mandel_seq", serial_time_avg)
+    serial_time_avg = par_crit_tim_avg[0]
     
     print(f"serial time avg: {serial_time_avg}")
     print("Begin with the ploting")
