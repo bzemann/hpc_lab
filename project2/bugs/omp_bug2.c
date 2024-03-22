@@ -11,7 +11,7 @@ int main(int argc, char *argv[]) {
   float total;
 
 /* Spawn parallel region */
-  #pragma omp parallel
+  #pragma omp parallel shared(total) private(nthreads, i, tid)
   {
     /* Obtain thread number */
     tid = omp_get_thread_num();
