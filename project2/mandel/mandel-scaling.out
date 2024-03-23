@@ -1,0 +1,458 @@
+rm -f *.o mandel_seq mandel_par_crit *.png
+gcc -c -O3 -fopenmp -I/cluster/apps/gcc-11.4.0/openblas-0.3.20-ssgo6yxxzud3xbfabkvv77e6lpnq7hep/include:/cluster/apps/gcc-4.8.5/gcc-11.4.0-xxnwhndqaqpuzs4l4ty4yj5tg2cexcg4/include mandel_seq.c
+gcc -c -O3 -fopenmp -I/cluster/apps/gcc-11.4.0/openblas-0.3.20-ssgo6yxxzud3xbfabkvv77e6lpnq7hep/include:/cluster/apps/gcc-4.8.5/gcc-11.4.0-xxnwhndqaqpuzs4l4ty4yj5tg2cexcg4/include pngwriter.c
+gcc -c -O3 -fopenmp -I/cluster/apps/gcc-11.4.0/openblas-0.3.20-ssgo6yxxzud3xbfabkvv77e6lpnq7hep/include:/cluster/apps/gcc-4.8.5/gcc-11.4.0-xxnwhndqaqpuzs4l4ty4yj5tg2cexcg4/include walltime.c
+gcc -O3 -fopenmp -L/cluster/apps/gcc-11.4.0/openblas-0.3.20-ssgo6yxxzud3xbfabkvv77e6lpnq7hep/lib:/cluster/apps/gcc-4.8.5/gcc-11.4.0-xxnwhndqaqpuzs4l4ty4yj5tg2cexcg4/lib64:/cluster/apps/gcc-4.8.5/gcc-11.4.0-xxnwhndqaqpuzs4l4ty4yj5tg2cexcg4/lib -lpng mandel_seq.o pngwriter.o walltime.o -o mandel_seq
+gcc -c -O3 -fopenmp -I/cluster/apps/gcc-11.4.0/openblas-0.3.20-ssgo6yxxzud3xbfabkvv77e6lpnq7hep/include:/cluster/apps/gcc-4.8.5/gcc-11.4.0-xxnwhndqaqpuzs4l4ty4yj5tg2cexcg4/include mandel_par_crit.c
+gcc -O3 -fopenmp -L/cluster/apps/gcc-11.4.0/openblas-0.3.20-ssgo6yxxzud3xbfabkvv77e6lpnq7hep/lib:/cluster/apps/gcc-4.8.5/gcc-11.4.0-xxnwhndqaqpuzs4l4ty4yj5tg2cexcg4/lib64:/cluster/apps/gcc-4.8.5/gcc-11.4.0-xxnwhndqaqpuzs4l4ty4yj5tg2cexcg4/lib -lpng mandel_par_crit.o pngwriter.o walltime.o -o mandel_par_crit
+Strong scaling
+Running with OMP_NUM_THREADS = 1
+Parallel Critical
+
+Total time:                 655.257 seconds
+Image size:                 4096 x 4096 = 16777216 Pixels
+Total number of iterations: 113610974266
+Avg. time per pixel:        3.90563e-05 seconds
+Avg. time per iteration:    5.76755e-09 seconds
+Iterations/second:          1.73384e+08
+MFlop/s:                    1387.07
+
+
+Total time:                 654.825 seconds
+Image size:                 4096 x 4096 = 16777216 Pixels
+Total number of iterations: 113610974266
+Avg. time per pixel:        3.90306e-05 seconds
+Avg. time per iteration:    5.76375e-09 seconds
+Iterations/second:          1.73498e+08
+MFlop/s:                    1387.99
+
+
+Total time:                 654.515 seconds
+Image size:                 4096 x 4096 = 16777216 Pixels
+Total number of iterations: 113610974266
+Avg. time per pixel:        3.90121e-05 seconds
+Avg. time per iteration:    5.76102e-09 seconds
+Iterations/second:          1.7358e+08
+MFlop/s:                    1388.64
+
+
+Total time:                 654.314 seconds
+Image size:                 4096 x 4096 = 16777216 Pixels
+Total number of iterations: 113610974266
+Avg. time per pixel:        3.90001e-05 seconds
+Avg. time per iteration:    5.75925e-09 seconds
+Iterations/second:          1.73634e+08
+MFlop/s:                    1389.07
+
+
+Total time:                 654.619 seconds
+Image size:                 4096 x 4096 = 16777216 Pixels
+Total number of iterations: 113610974266
+Avg. time per pixel:        3.90183e-05 seconds
+Avg. time per iteration:    5.76194e-09 seconds
+Iterations/second:          1.73553e+08
+MFlop/s:                    1388.42
+
+
+Total time:                 655.257 seconds
+Image size:                 4096 x 4096 = 16777216 Pixels
+Total number of iterations: 113610974266
+Avg. time per pixel:        3.90564e-05 seconds
+Avg. time per iteration:    5.76755e-09 seconds
+Iterations/second:          1.73384e+08
+MFlop/s:                    1387.07
+
+Running with OMP_NUM_THREADS = 2
+Parallel Critical
+
+Total time:                 200.901 seconds
+Image size:                 4096 x 4096 = 16777216 Pixels
+Total number of iterations: 113638991328
+Avg. time per pixel:        1.19746e-05 seconds
+Avg. time per iteration:    1.76788e-09 seconds
+Iterations/second:          5.65648e+08
+MFlop/s:                    4525.18
+
+
+Total time:                 231.556 seconds
+Image size:                 4096 x 4096 = 16777216 Pixels
+Total number of iterations: 113638991328
+Avg. time per pixel:        1.38018e-05 seconds
+Avg. time per iteration:    2.03765e-09 seconds
+Iterations/second:          4.90762e+08
+MFlop/s:                    3926.1
+
+
+Total time:                 196.246 seconds
+Image size:                 4096 x 4096 = 16777216 Pixels
+Total number of iterations: 113638991328
+Avg. time per pixel:        1.16972e-05 seconds
+Avg. time per iteration:    1.72692e-09 seconds
+Iterations/second:          5.79065e+08
+MFlop/s:                    4632.52
+
+
+Total time:                 232.031 seconds
+Image size:                 4096 x 4096 = 16777216 Pixels
+Total number of iterations: 113638991328
+Avg. time per pixel:        1.38301e-05 seconds
+Avg. time per iteration:    2.04183e-09 seconds
+Iterations/second:          4.89758e+08
+MFlop/s:                    3918.06
+
+
+Total time:                 229.805 seconds
+Image size:                 4096 x 4096 = 16777216 Pixels
+Total number of iterations: 113638991328
+Avg. time per pixel:        1.36975e-05 seconds
+Avg. time per iteration:    2.02224e-09 seconds
+Iterations/second:          4.94501e+08
+MFlop/s:                    3956.01
+
+
+Total time:                 179.438 seconds
+Image size:                 4096 x 4096 = 16777216 Pixels
+Total number of iterations: 113638991328
+Avg. time per pixel:        1.06954e-05 seconds
+Avg. time per iteration:    1.57902e-09 seconds
+Iterations/second:          6.33304e+08
+MFlop/s:                    5066.43
+
+Running with OMP_NUM_THREADS = 4
+Parallel Critical
+
+Total time:                 210.173 seconds
+Image size:                 4096 x 4096 = 16777216 Pixels
+Total number of iterations: 113638935611
+Avg. time per pixel:        1.25273e-05 seconds
+Avg. time per iteration:    1.84948e-09 seconds
+Iterations/second:          5.40693e+08
+MFlop/s:                    4325.54
+
+
+Total time:                 174.777 seconds
+Image size:                 4096 x 4096 = 16777216 Pixels
+Total number of iterations: 113638935611
+Avg. time per pixel:        1.04176e-05 seconds
+Avg. time per iteration:    1.53801e-09 seconds
+Iterations/second:          6.50192e+08
+MFlop/s:                    5201.54
+
+
+Total time:                 208.824 seconds
+Image size:                 4096 x 4096 = 16777216 Pixels
+Total number of iterations: 113638935611
+Avg. time per pixel:        1.24469e-05 seconds
+Avg. time per iteration:    1.83761e-09 seconds
+Iterations/second:          5.44186e+08
+MFlop/s:                    4353.49
+
+
+Total time:                 165.045 seconds
+Image size:                 4096 x 4096 = 16777216 Pixels
+Total number of iterations: 113638935611
+Avg. time per pixel:        9.83744e-06 seconds
+Avg. time per iteration:    1.45236e-09 seconds
+Iterations/second:          6.88534e+08
+MFlop/s:                    5508.27
+
+
+Total time:                 195.66 seconds
+Image size:                 4096 x 4096 = 16777216 Pixels
+Total number of iterations: 113638935611
+Avg. time per pixel:        1.16622e-05 seconds
+Avg. time per iteration:    1.72177e-09 seconds
+Iterations/second:          5.80798e+08
+MFlop/s:                    4646.39
+
+
+Total time:                 197.274 seconds
+Image size:                 4096 x 4096 = 16777216 Pixels
+Total number of iterations: 113638935611
+Avg. time per pixel:        1.17585e-05 seconds
+Avg. time per iteration:    1.73598e-09 seconds
+Iterations/second:          5.76045e+08
+MFlop/s:                    4608.36
+
+Running with OMP_NUM_THREADS = 8
+Parallel Critical
+
+Total time:                 134.563 seconds
+Image size:                 4096 x 4096 = 16777216 Pixels
+Total number of iterations: 113639216757
+Avg. time per pixel:        8.0206e-06 seconds
+Avg. time per iteration:    1.18413e-09 seconds
+Iterations/second:          8.44504e+08
+MFlop/s:                    6756.03
+
+
+Total time:                 152.909 seconds
+Image size:                 4096 x 4096 = 16777216 Pixels
+Total number of iterations: 113639216757
+Avg. time per pixel:        9.11409e-06 seconds
+Avg. time per iteration:    1.34557e-09 seconds
+Iterations/second:          7.43182e+08
+MFlop/s:                    5945.46
+
+
+Total time:                 162.339 seconds
+Image size:                 4096 x 4096 = 16777216 Pixels
+Total number of iterations: 113639216757
+Avg. time per pixel:        9.67618e-06 seconds
+Avg. time per iteration:    1.42855e-09 seconds
+Iterations/second:          7.0001e+08
+MFlop/s:                    5600.08
+
+
+Total time:                 174.798 seconds
+Image size:                 4096 x 4096 = 16777216 Pixels
+Total number of iterations: 113639216757
+Avg. time per pixel:        1.04188e-05 seconds
+Avg. time per iteration:    1.53819e-09 seconds
+Iterations/second:          6.50116e+08
+MFlop/s:                    5200.93
+
+
+Total time:                 163.052 seconds
+Image size:                 4096 x 4096 = 16777216 Pixels
+Total number of iterations: 113639216757
+Avg. time per pixel:        9.71868e-06 seconds
+Avg. time per iteration:    1.43483e-09 seconds
+Iterations/second:          6.96949e+08
+MFlop/s:                    5575.59
+
+
+Total time:                 125.654 seconds
+Image size:                 4096 x 4096 = 16777216 Pixels
+Total number of iterations: 113639216757
+Avg. time per pixel:        7.48956e-06 seconds
+Avg. time per iteration:    1.10573e-09 seconds
+Iterations/second:          9.04383e+08
+MFlop/s:                    7235.06
+
+Running with OMP_NUM_THREADS = 16
+Parallel Critical
+
+Total time:                 88.6881 seconds
+Image size:                 4096 x 4096 = 16777216 Pixels
+Total number of iterations: 113638999220
+Avg. time per pixel:        5.28622e-06 seconds
+Avg. time per iteration:    7.80437e-10 seconds
+Iterations/second:          1.28133e+09
+MFlop/s:                    10250.7
+
+
+Total time:                 73.605 seconds
+Image size:                 4096 x 4096 = 16777216 Pixels
+Total number of iterations: 113638999220
+Avg. time per pixel:        4.3872e-06 seconds
+Avg. time per iteration:    6.47709e-10 seconds
+Iterations/second:          1.5439e+09
+MFlop/s:                    12351.2
+
+
+Total time:                 80.6391 seconds
+Image size:                 4096 x 4096 = 16777216 Pixels
+Total number of iterations: 113638999220
+Avg. time per pixel:        4.80647e-06 seconds
+Avg. time per iteration:    7.09608e-10 seconds
+Iterations/second:          1.40923e+09
+MFlop/s:                    11273.8
+
+
+Total time:                 76.9026 seconds
+Image size:                 4096 x 4096 = 16777216 Pixels
+Total number of iterations: 113638999220
+Avg. time per pixel:        4.58375e-06 seconds
+Avg. time per iteration:    6.76727e-10 seconds
+Iterations/second:          1.4777e+09
+MFlop/s:                    11821.6
+
+
+Total time:                 77.0702 seconds
+Image size:                 4096 x 4096 = 16777216 Pixels
+Total number of iterations: 113638999220
+Avg. time per pixel:        4.59374e-06 seconds
+Avg. time per iteration:    6.78202e-10 seconds
+Iterations/second:          1.47449e+09
+MFlop/s:                    11795.9
+
+
+Total time:                 94.3872 seconds
+Image size:                 4096 x 4096 = 16777216 Pixels
+Total number of iterations: 113638999220
+Avg. time per pixel:        5.62591e-06 seconds
+Avg. time per iteration:    8.30588e-10 seconds
+Iterations/second:          1.20397e+09
+MFlop/s:                    9631.73
+
+Running with OMP_NUM_THREADS = 32
+Parallel Critical
+
+Total time:                 38.5067 seconds
+Image size:                 4096 x 4096 = 16777216 Pixels
+Total number of iterations: 113639174542
+Avg. time per pixel:        2.29518e-06 seconds
+Avg. time per iteration:    3.38851e-10 seconds
+Iterations/second:          2.95115e+09
+MFlop/s:                    23609.2
+
+
+Total time:                 37.3837 seconds
+Image size:                 4096 x 4096 = 16777216 Pixels
+Total number of iterations: 113639174542
+Avg. time per pixel:        2.22824e-06 seconds
+Avg. time per iteration:    3.28968e-10 seconds
+Iterations/second:          3.03981e+09
+MFlop/s:                    24318.5
+
+
+Total time:                 37.8057 seconds
+Image size:                 4096 x 4096 = 16777216 Pixels
+Total number of iterations: 113639174542
+Avg. time per pixel:        2.2534e-06 seconds
+Avg. time per iteration:    3.32682e-10 seconds
+Iterations/second:          3.00587e+09
+MFlop/s:                    24047
+
+
+Total time:                 38.7553 seconds
+Image size:                 4096 x 4096 = 16777216 Pixels
+Total number of iterations: 113639174542
+Avg. time per pixel:        2.30999e-06 seconds
+Avg. time per iteration:    3.41038e-10 seconds
+Iterations/second:          2.93223e+09
+MFlop/s:                    23457.8
+
+
+Total time:                 44.4672 seconds
+Image size:                 4096 x 4096 = 16777216 Pixels
+Total number of iterations: 113639174542
+Avg. time per pixel:        2.65045e-06 seconds
+Avg. time per iteration:    3.91302e-10 seconds
+Iterations/second:          2.55557e+09
+MFlop/s:                    20444.6
+
+
+Total time:                 42.771 seconds
+Image size:                 4096 x 4096 = 16777216 Pixels
+Total number of iterations: 113639174542
+Avg. time per pixel:        2.54935e-06 seconds
+Avg. time per iteration:    3.76376e-10 seconds
+Iterations/second:          2.65692e+09
+MFlop/s:                    21255.4
+
+Running with OMP_NUM_THREADS = 64
+Parallel Critical
+
+Total time:                 19.4245 seconds
+Image size:                 4096 x 4096 = 16777216 Pixels
+Total number of iterations: 113639456428
+Avg. time per pixel:        1.15779e-06 seconds
+Avg. time per iteration:    1.70931e-10 seconds
+Iterations/second:          5.85033e+09
+MFlop/s:                    46802.6
+
+
+Total time:                 21.1819 seconds
+Image size:                 4096 x 4096 = 16777216 Pixels
+Total number of iterations: 113639456428
+Avg. time per pixel:        1.26254e-06 seconds
+Avg. time per iteration:    1.86395e-10 seconds
+Iterations/second:          5.36494e+09
+MFlop/s:                    42919.5
+
+
+Total time:                 21.2085 seconds
+Image size:                 4096 x 4096 = 16777216 Pixels
+Total number of iterations: 113639456428
+Avg. time per pixel:        1.26413e-06 seconds
+Avg. time per iteration:    1.8663e-10 seconds
+Iterations/second:          5.3582e+09
+MFlop/s:                    42865.6
+
+
+Total time:                 18.7178 seconds
+Image size:                 4096 x 4096 = 16777216 Pixels
+Total number of iterations: 113639456428
+Avg. time per pixel:        1.11567e-06 seconds
+Avg. time per iteration:    1.64712e-10 seconds
+Iterations/second:          6.07119e+09
+MFlop/s:                    48569.5
+
+
+Total time:                 19.4769 seconds
+Image size:                 4096 x 4096 = 16777216 Pixels
+Total number of iterations: 113639456428
+Avg. time per pixel:        1.16092e-06 seconds
+Avg. time per iteration:    1.71392e-10 seconds
+Iterations/second:          5.83457e+09
+MFlop/s:                    46676.5
+
+
+Total time:                 19.8591 seconds
+Image size:                 4096 x 4096 = 16777216 Pixels
+Total number of iterations: 113639456428
+Avg. time per pixel:        1.1837e-06 seconds
+Avg. time per iteration:    1.74755e-10 seconds
+Iterations/second:          5.72228e+09
+MFlop/s:                    45778.3
+
+Running with OMP_NUM_THREADS = 128
+Parallel Critical
+
+Total time:                 11.6896 seconds
+Image size:                 4096 x 4096 = 16777216 Pixels
+Total number of iterations: 113639285742
+Avg. time per pixel:        6.96752e-07 seconds
+Avg. time per iteration:    1.02865e-10 seconds
+Iterations/second:          9.72144e+09
+MFlop/s:                    77771.5
+
+
+Total time:                 10.7564 seconds
+Image size:                 4096 x 4096 = 16777216 Pixels
+Total number of iterations: 113639285742
+Avg. time per pixel:        6.41133e-07 seconds
+Avg. time per iteration:    9.46542e-11 seconds
+Iterations/second:          1.05648e+10
+MFlop/s:                    84518.2
+
+
+Total time:                 10.6025 seconds
+Image size:                 4096 x 4096 = 16777216 Pixels
+Total number of iterations: 113639285742
+Avg. time per pixel:        6.31961e-07 seconds
+Avg. time per iteration:    9.32999e-11 seconds
+Iterations/second:          1.07181e+10
+MFlop/s:                    85745
+
+
+Total time:                 10.2984 seconds
+Image size:                 4096 x 4096 = 16777216 Pixels
+Total number of iterations: 113639285742
+Avg. time per pixel:        6.13831e-07 seconds
+Avg. time per iteration:    9.06234e-11 seconds
+Iterations/second:          1.10347e+10
+MFlop/s:                    88277.4
+
+
+Total time:                 12.1341 seconds
+Image size:                 4096 x 4096 = 16777216 Pixels
+Total number of iterations: 113639285742
+Avg. time per pixel:        7.23248e-07 seconds
+Avg. time per iteration:    1.06777e-10 seconds
+Iterations/second:          9.36529e+09
+MFlop/s:                    74922.3
+
+
+Total time:                 9.90476 seconds
+Image size:                 4096 x 4096 = 16777216 Pixels
+Total number of iterations: 113639285742
+Avg. time per pixel:        5.9037e-07 seconds
+Avg. time per iteration:    8.71596e-11 seconds
+Iterations/second:          1.14732e+10
+MFlop/s:                    91785.6
+
+Serial
+Begin with the ploting
