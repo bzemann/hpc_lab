@@ -39,7 +39,7 @@ walltime.o: walltime.c walltime.h
 
 .PHONY: clean clean-o
 clean:
-	$(RM) *.o mandel_seq mandel_par_crit mandel_par_red *.png
+	$(RM) *.o mandel_seq mandel_par_crit mandel_par_red 
 	
-clean-o: 
-	$(RM) *.o mandel_seq mandel_par_crit mandel_par_red
+clean-all: 
+	$(RM) *.o mandel_seq mandel_par_crit mandel_par_red *.png
