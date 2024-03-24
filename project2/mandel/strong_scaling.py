@@ -65,14 +65,13 @@ if __name__ == "__main__":
         print("Parallel Critical")
         run_strong(num_threads, 6, "./mandel_par_crit", par_crit_tim_avg)
         
-        if i != 0:
-            print("Parallel Reduction")
-            run_strong(num_threads, 6, "./mandel_par_red", par_red_tim_avg)
+        print("Parallel Reduction\n")
+        run_strong(num_threads, 6, "./mandel_par_red", par_red_tim_avg)
         
     print("Serial")
     #serial_time_avg = run_ser(1, 6, "./mandel_seq", serial_time_avg)
     serial_time_avg = par_crit_tim_avg[0]
-    par_red_tim_avg[0] = par_crit_tim_avg[0]
+    
     
     print("Begin with the ploting")
     plot_strong(n_threads, serial_time_avg, par_crit_tim_avg, par_red_tim_avg)
