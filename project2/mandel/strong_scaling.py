@@ -3,10 +3,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 import re
 
-def plot_strong(n_threads, arr_time_ser_avg, arr_time_par_crit_avg):
+def plot_strong(n_threads, arr_time_ser_avg, arr_time_par_crit_avg, arr_time_par_crit_avg):
     speedup_crit = arr_time_ser_avg / np.array(arr_time_par_crit_avg)
+    speedup_red = arr_time_ser_avg / np.array(arr_time_par_crit_avg)
     
     plt.plot(n_threads, speedup_crit, label='critical')
+    plt.plot(n_threads, speedup_red, label='reduction')
     plt.xlabel('nthreads')
     plt.ylabel('speedup')
     plt.legend()
@@ -29,7 +31,7 @@ def plot_strong(n_threads, arr_time_ser_avg, arr_time_par_crit_avg):
 #    time_avg_ser = tot_time / n_runs
     
 
-def run_par(n_threads, n_runs, exe_path, arr_time_avg_par):
+def run_strong(n_threads, n_runs, exe_path, arr_time_avg_par):
     tot_time = 0
     env = {'OMP_NUM_THREADS': str(n_threads)}
     
@@ -50,6 +52,7 @@ def run_par(n_threads, n_runs, exe_path, arr_time_avg_par):
 if __name__ == "__main__":
     serial_time_avg = 0
     par_crit_tim_avg = []
+    par_red_tim_avg = []
     
     n_threads = []
     
@@ -60,14 +63,16 @@ if __name__ == "__main__":
         
         print(f"Running with OMP_NUM_THREADS = {num_threads}")
         print("Parallel Critical")
-        run_par(num_threads, 6, "./mandel_par_crit", par_crit_tim_avg)
-        #print(f"par time arr: {par_crit_tim_avg}")
+        run_strong(num_threads, 6, "./mandel_par_red", par_crit_tim_avg)
+        
+        if i != 0:
+            print("Parallel Reduction")
+            run_strong(num_threads, 6, "./mandel_par_red", par_red_tim_avg)
         
     print("Serial")
     #serial_time_avg = run_ser(1, 6, "./mandel_seq", serial_time_avg)
     serial_time_avg = par_crit_tim_avg[0]
+    par_red_tim_avg[0] = par_crit_tim_avg[0]
     
-    #print(f"parallel time avgs: {par_crit_tim_avg}")
-    #print(f"serial time avg: {serial_time_avg}")
     print("Begin with the ploting")
     plot_strong(n_threads, serial_time_avg, par_crit_tim_avg)

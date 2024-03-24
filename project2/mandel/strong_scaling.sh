@@ -6,7 +6,7 @@
 #SBATCH --constraint=EPYC_7763        # Select node with CPU
 #SBATCH --cpus-per-task=128           # Number of CPUs per task
 #SBATCH --mem-per-cpu=1024            # Memory per CPU
-#SBATCH --time=05:00:00               # Wall clock time limit
+#SBATCH --time=09:00:00               # Wall clock time limit
 
 # Load some modules
 module load gcc

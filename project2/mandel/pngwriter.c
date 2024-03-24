@@ -62,12 +62,12 @@ void png_write(png_data *pData, char *szFileName) {
   png_destroy_write_struct(&png_ptr, &info_ptr);
   fclose(fp);
   
-  for(int h = 0; h < pData->nHeight; ++h){
+  /*for(int h = 0; h < pData->nHeight; ++h){
     free(pData->pPixels[h]);
   }
   free(pData->pPixels);
-  free(pData);
+  free(pData);*/
   
   //Memory leak spotted
-  //free(pData);
+  free(pData);
 }

@@ -21,22 +21,23 @@ int main(int argc, char **argv) {
 
   long nTotalIterationsCount = 0;
 
-  long i, j;
+  //long i, j;
+  long chunksize;
 
   double time_start = walltime();
   
-  //calculations parallel reduction
+  //calculations parallel reduction 
   #pragma omp parallel private(cx, cy, x, y, x2, y2) reduction(+:nTotalIterationsCount) 
   {
-    int nthreads = omp_get_num_threads();
     int t_id = omp_get_thread_num();
-    int j_beg = t_id * IMAGE_HEIGHT / nthreads;
-    int j_end = (t_id + 1) * IMAGE_HEIGHT / nthreads;
-    
     //printf("thread: %d entered\n", t_id);
-    cy = MIN_Y + (MAX_Y - MIN_Y) * t_id / (double)nthreads;
-
-    for (long j = j_beg; j < j_end; j++) {
+    #pragma omp single
+    {
+      chunksize = IMAGE_HEIGHT / (8 * omp_get_num_threads());
+    }
+    #pragma omp for schedule(dynamic, chunksize)
+    for (long j = 0; j < IMAGE_HEIGHT; j++) {
+      cy = MIN_Y + j * fDeltaY;
       cx = MIN_X;
       
       for (long i = 0; i < IMAGE_WIDTH; i++) {
@@ -65,13 +66,12 @@ int main(int argc, char **argv) {
         //png_plot(pPng, i, j, c, c, c);
         cx += fDeltaX;
       }
-      cy += fDeltaY;
     }
     //print for local run to see which thread is finished
     /*printf("thread id: %d, finished in: %g seconds    , num iterations: %ld\n", 
       t_id, 
       walltime() - time_start, 
-      localTotalIterationsCount);*/
+      nTotalIterationsCount);*/
   }
   
   double time_end = walltime();
