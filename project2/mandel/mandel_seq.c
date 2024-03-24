@@ -10,7 +10,7 @@
 #include "walltime.h"
 
 int main(int argc, char **argv) {
-  //png_data *pPng = png_create(IMAGE_WIDTH, IMAGE_HEIGHT);
+  png_data *pPng = png_create(IMAGE_WIDTH, IMAGE_HEIGHT);
 
   double x, y, x2, y2, cx, cy;
 
@@ -49,7 +49,7 @@ int main(int argc, char **argv) {
       // n indicates if the point belongs to the mandelbrot set
       // plot the number of iterations at point (i, j)
       int c = ((long)n * 255) / MAX_ITERS;
-      //png_plot(pPng, i, j, c, c, c);
+      png_plot(pPng, i, j, c, c, c);
       cx += fDeltaX;
     }
     cy += fDeltaY;
@@ -79,6 +79,6 @@ int main(int argc, char **argv) {
   printf("MFlop/s:                    %g\n",
          nTotalIterationsCount * 8.0 / (time_end - time_start) * 1.e-6);
 
-  //png_write(pPng, "mandel.png");
+  png_write(pPng, "mandel.png");
   return 0;
 }
