@@ -5,8 +5,8 @@
 #define MAX_ITERS 35207
 
 // image size
-#define IMAGE_WIDTH 1024
-#define IMAGE_HEIGHT 1024
+#define IMAGE_WIDTH 8192 
+#define IMAGE_HEIGHT 8192 
 
 // the extent of the parameter plane ( MIN_X + iMIN_Y <= c < MAX_X + iMAX_Y )
 #define MIN_X -2.1

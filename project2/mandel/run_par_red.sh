@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=mandel_red         # Job name    (default: sbatch)
-#SBATCH --output=mandel_red-1024.out  # Output file (default: slurm-%j.out)
-#SBATCH --error=mandel_red-1024.err   # Error file  (default: slurm-%j.out)
+#SBATCH --output=mandel_red-8192.out  # Output file (default: slurm-%j.out)
+#SBATCH --error=mandel_red-8192.err   # Error file  (default: slurm-%j.out)
 #SBATCH --ntasks=1                    # Number of tasks
 #SBATCH --constraint=EPYC_7763        # Select node with CPU
 #SBATCH --cpus-per-task=64            # Number of CPUs per task
@@ -17,4 +17,5 @@ make clean
 make
 
 #run mandel sequential
+export OMP_NUM_THREADS=64
 ./mandel_par_red

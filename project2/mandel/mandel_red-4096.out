@@ -1,0 +1,16 @@
+rm -f *.o mandel_seq mandel_par_crit mandel_par_red 
+gcc -c -O3 -fopenmp -I/cluster/apps/gcc-4.8.5/gcc-11.4.0-xxnwhndqaqpuzs4l4ty4yj5tg2cexcg4/include mandel_seq.c
+gcc -c -O3 -fopenmp -I/cluster/apps/gcc-4.8.5/gcc-11.4.0-xxnwhndqaqpuzs4l4ty4yj5tg2cexcg4/include pngwriter.c
+gcc -c -O3 -fopenmp -I/cluster/apps/gcc-4.8.5/gcc-11.4.0-xxnwhndqaqpuzs4l4ty4yj5tg2cexcg4/include walltime.c
+gcc -O3 -fopenmp -L/cluster/apps/gcc-4.8.5/gcc-11.4.0-xxnwhndqaqpuzs4l4ty4yj5tg2cexcg4/lib64:/cluster/apps/gcc-4.8.5/gcc-11.4.0-xxnwhndqaqpuzs4l4ty4yj5tg2cexcg4/lib -lpng mandel_seq.o pngwriter.o walltime.o -o mandel_seq
+gcc -c -O3 -fopenmp -I/cluster/apps/gcc-4.8.5/gcc-11.4.0-xxnwhndqaqpuzs4l4ty4yj5tg2cexcg4/include mandel_par_crit.c
+gcc -O3 -fopenmp -L/cluster/apps/gcc-4.8.5/gcc-11.4.0-xxnwhndqaqpuzs4l4ty4yj5tg2cexcg4/lib64:/cluster/apps/gcc-4.8.5/gcc-11.4.0-xxnwhndqaqpuzs4l4ty4yj5tg2cexcg4/lib -lpng mandel_par_crit.o pngwriter.o walltime.o -o mandel_par_crit
+gcc -c -O3 -fopenmp -I/cluster/apps/gcc-4.8.5/gcc-11.4.0-xxnwhndqaqpuzs4l4ty4yj5tg2cexcg4/include mandel_par_red.c
+gcc -O3 -fopenmp -L/cluster/apps/gcc-4.8.5/gcc-11.4.0-xxnwhndqaqpuzs4l4ty4yj5tg2cexcg4/lib64:/cluster/apps/gcc-4.8.5/gcc-11.4.0-xxnwhndqaqpuzs4l4ty4yj5tg2cexcg4/lib -lpng mandel_par_red.o pngwriter.o walltime.o -o mandel_par_red
+Total time:                 6.90909 seconds
+Image size:                 4096 x 4096 = 16777216 Pixels
+Total number of iterations: 113639289737
+Avg. time per pixel:        4.11814e-07 seconds
+Avg. time per iteration:    6.07985e-11 seconds
+Iterations/second:          1.64478e+10
+MFlop/s:                    131582
