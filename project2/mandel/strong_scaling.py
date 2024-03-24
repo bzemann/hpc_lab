@@ -3,9 +3,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 import re
 
-def plot_strong(n_threads, arr_time_ser_avg, arr_time_par_crit_avg, arr_time_par_crit_avg):
+def plot_strong(n_threads, arr_time_ser_avg, arr_time_par_crit_avg, arr_time_par_red_avg):
     speedup_crit = arr_time_ser_avg / np.array(arr_time_par_crit_avg)
-    speedup_red = arr_time_ser_avg / np.array(arr_time_par_crit_avg)
+    speedup_red = arr_time_ser_avg / np.array(arr_time_par_red_avg)
     
     plt.plot(n_threads, speedup_crit, label='critical')
     plt.plot(n_threads, speedup_red, label='reduction')
@@ -63,7 +63,7 @@ if __name__ == "__main__":
         
         print(f"Running with OMP_NUM_THREADS = {num_threads}")
         print("Parallel Critical")
-        run_strong(num_threads, 6, "./mandel_par_red", par_crit_tim_avg)
+        run_strong(num_threads, 6, "./mandel_par_crit", par_crit_tim_avg)
         
         if i != 0:
             print("Parallel Reduction")
@@ -75,4 +75,4 @@ if __name__ == "__main__":
     par_red_tim_avg[0] = par_crit_tim_avg[0]
     
     print("Begin with the ploting")
-    plot_strong(n_threads, serial_time_avg, par_crit_tim_avg)
+    plot_strong(n_threads, serial_time_avg, par_crit_tim_avg, par_red_tim_avg)
