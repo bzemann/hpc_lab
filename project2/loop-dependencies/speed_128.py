@@ -12,12 +12,12 @@ def run_speed_par(nthreads, n_runs, exe_path):
         output = result.stdout.decode('utf-8')
         print(output)
         
-        match = re.search(r'Parallel RunTime\s*:\s*(\d+\.\d+)', output)       
+        match = re.search(r'Parallel RunTime\s+:\s+(\d+\.\d+)', output)       
         if match:
             time_str = match.group(1)
             time = float(time_str)
             tot_time += time
-            
+    print(f"tot time: {tot_time/n_runs}")        
     return tot_time / n_runs
     
 def run_speed_seq(nthreads, n_runs, exe_path):

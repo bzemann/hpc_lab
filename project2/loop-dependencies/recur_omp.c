@@ -21,7 +21,7 @@ int main(int argc, char *argv[]) {
 
   double time_start = walltime();
   // TODO: YOU NEED TO PARALLELIZE THIS LOOP
-  #pragma omp parallel firstprivate(n, up)  
+  #pragma omp parallel shared(opt) firstprivate(n, up)  
   {
     int t_id = omp_get_thread_num();
     int nthreads = omp_get_num_threads();
