@@ -7,7 +7,7 @@
 
 int main(int argc, char *argv[]) {
   int N = 2000000000;
-  //int N = 200000;
+  //int N = 20;
   double up = 1.00000001;
   double Sn = 1.00000001;
   int n;
@@ -18,23 +18,22 @@ int main(int argc, char *argv[]) {
     perror("failed to allocate problem size");
     exit(EXIT_FAILURE);
   }
-
+  printf("hallo welt\n");
   double time_start = walltime();
   // TODO: YOU NEED TO PARALLELIZE THIS LOOP
-  #pragma omp parallel shared(opt) firstprivate(n, up)  
+  #pragma omp parallel shared(opt) private(n) firstprivate(up)  
   {
     int t_id = omp_get_thread_num();
     int nthreads = omp_get_num_threads();
-    int t_beg = t_id * (N + 1) / nthreads;
-    int t_end = (t_id + 1) * (N + 1) / nthreads;
+    int t_beg = t_id * N / nthreads;
+    int t_end = (t_id == nthreads - 1) ? N : (t_id + 1) * N / nthreads; 
     double local_up = pow(up, t_beg);
     double sn_local = Sn * local_up;
     for (n = t_beg; n <= t_end; ++n) {
       opt[n] = sn_local;
       sn_local *= up;
     }
-  }
-  
+  } 
   Sn = opt[N];
   
   printf("Parallel RunTime  :  %f seconds\n", walltime() - time_start);
