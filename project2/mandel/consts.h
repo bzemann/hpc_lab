@@ -2,11 +2,11 @@
 #define CONSTS_H_
 
 // maximum number of iterations
-#define MAX_ITERS 35207
+#define MAX_ITERS 11736
 
 // image size
-#define IMAGE_WIDTH 8192 
-#define IMAGE_HEIGHT 8192 
+#define IMAGE_WIDTH 4096 
+#define IMAGE_HEIGHT 4096 
 
 // the extent of the parameter plane ( MIN_X + iMIN_Y <= c < MAX_X + iMAX_Y )
 #define MIN_X -2.1
