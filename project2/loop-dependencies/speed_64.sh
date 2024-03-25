@@ -18,6 +18,4 @@ module list
 make clean
 make
 
-#python speed_64.py
-export OMP_NUM_THREADS=1
-./recur_omp
+python speed_64.py
