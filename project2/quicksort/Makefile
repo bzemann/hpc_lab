@@ -1,7 +1,5 @@
-CC     = gcc-13
+CC     = gcc
 CFLAGS = -O3 -fopenmp
-HDR_DEPS = ../walltime.h
-SRC_DEPS = ../walltime.c
 
 all: quicksort_seq quicksort_par
 
@@ -11,13 +9,13 @@ quicksort_par: quicksort_par.o walltime.o
 quicksort_seq: quicksort_seq.o walltime.o
 	$(CC) $(CFLAGS) $^ -o $@
 
-quicksort_par.o: quicksort_par.c $(HDR_DEPS)
+quicksort_par.o: quicksort_par.c walltime.h
 	$(CC) -c $(CFLAGS) $<
 
-quicksort_seq.o: quicksort_seq.c $(HDR_DEPS)
+quicksort_seq.o: quicksort_seq.c walltime.h
 	$(CC) -c $(CFLAGS) $<
 
-walltime.o: $(SRC_DEPS) $(HDR_DEPS)
+walltime.o: walltime.c walltime.h
 	$(CC) -c $(CFLAGS) $<
 
 .PHONY: clean
