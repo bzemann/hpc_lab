@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "walltime.h"
+#include <omp.h>
+
+#include "../walltime.h"
 
 void print_list(double *data, int length) {
   for (int i = 0; i < length; i++) {
@@ -39,8 +41,16 @@ void quicksort(double *data, int length) {
   // print_list(data, length);
 
   /* recursion */
-  quicksort(data, right);
-  quicksort(&(data[left]), length - left);
+  #pragma omp task
+  {
+    quicksort(data, right); 
+  }
+  #pragma omp task
+  {
+    quicksort(&(data[left]), length - left);
+  }
+  
+  #pragma omp taskwait
 }
 
 int check(double *data, int length) {
@@ -58,7 +68,7 @@ int main(int argc, char **argv) {
 
   int i, j, k;
 
-  length = 10000000;
+  length = 100000000;
   if (argc > 1) length = atoi(argv[1]);
 
   data = (double*)malloc(length * sizeof(double));
@@ -76,7 +86,13 @@ int main(int argc, char **argv) {
   // print_list(data, length);
 
   double time_start = walltime();
-  quicksort(data, length);
+  #pragma omp parallel shared(data, length)
+  {
+    #pragma omp single
+    {
+      quicksort(data, length);
+    }
+  }
   double time = walltime() - time_start;
 
   // print_list(data, length);
