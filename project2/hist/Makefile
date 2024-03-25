@@ -1,4 +1,5 @@
-CXX    ?= g++
+CXX     ?= g++
+#CXX    = g++-13
 CFLAGS  = -O3 -fopenmp
 
 all: hist_seq hist_omp
