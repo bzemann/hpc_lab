@@ -1,0 +1,80 @@
+rm -f *.o recur_seq recur_omp
+/cluster/apps/gcc-4.8.5/gcc-11.4.0-xxnwhndqaqpuzs4l4ty4yj5tg2cexcg4/bin/gcc -c -O3 recur_seq.c
+/cluster/apps/gcc-4.8.5/gcc-11.4.0-xxnwhndqaqpuzs4l4ty4yj5tg2cexcg4/bin/gcc -c walltime.c
+/cluster/apps/gcc-4.8.5/gcc-11.4.0-xxnwhndqaqpuzs4l4ty4yj5tg2cexcg4/bin/gcc -O3 recur_seq.o walltime.o -o recur_seq
+/cluster/apps/gcc-4.8.5/gcc-11.4.0-xxnwhndqaqpuzs4l4ty4yj5tg2cexcg4/bin/gcc -O3 -fopenmp -lm recur_omp.c walltime.o -o recur_omp
+Parallel
+N: 2000000000
+
+Parallel RunTime  :  1.010323 seconds
+Final Result Sn   :  485165092.77336526 
+Result ||opt||^2_2 :  5884629305179745.000000
+
+
+N: 2000000000
+
+Parallel RunTime  :  0.981484 seconds
+Final Result Sn   :  485165092.77336526 
+Result ||opt||^2_2 :  5884629305179745.000000
+
+
+N: 2000000000
+
+Parallel RunTime  :  0.864665 seconds
+Final Result Sn   :  485165092.77336526 
+Result ||opt||^2_2 :  5884629305179745.000000
+
+
+N: 2000000000
+
+Parallel RunTime  :  0.942382 seconds
+Final Result Sn   :  485165092.77336526 
+Result ||opt||^2_2 :  5884629305179745.000000
+
+
+N: 2000000000
+
+Parallel RunTime  :  0.876347 seconds
+Final Result Sn   :  485165092.77336526 
+Result ||opt||^2_2 :  5884629305179745.000000
+
+
+N: 2000000000
+
+Parallel RunTime  :  1.037496 seconds
+Final Result Sn   :  485165092.77336526 
+Result ||opt||^2_2 :  5884629305179745.000000
+
+
+Serial
+Sequential RunTime:  8.963225 seconds
+Final Result Sn   :  485165097.62511122 
+Result ||opt||^2_2 :  5884629305179574.000000
+
+
+Sequential RunTime:  8.837767 seconds
+Final Result Sn   :  485165097.62511122 
+Result ||opt||^2_2 :  5884629305179574.000000
+
+
+Sequential RunTime:  9.026730 seconds
+Final Result Sn   :  485165097.62511122 
+Result ||opt||^2_2 :  5884629305179574.000000
+
+
+Sequential RunTime:  9.201413 seconds
+Final Result Sn   :  485165097.62511122 
+Result ||opt||^2_2 :  5884629305179574.000000
+
+
+Sequential RunTime:  8.807077 seconds
+Final Result Sn   :  485165097.62511122 
+Result ||opt||^2_2 :  5884629305179574.000000
+
+
+Sequential RunTime:  8.873659 seconds
+Final Result Sn   :  485165097.62511122 
+Result ||opt||^2_2 :  5884629305179574.000000
+
+
+The speedup with 128 thread is: 9.401841371947436
