@@ -11,6 +11,7 @@
 #define N 50
 #define CHUNKSIZE 5
 
+//compile-time bug
 int main(int argc, char *argv[]) {
   int i, chunk, tid;
   float a[N], b[N], c[N];

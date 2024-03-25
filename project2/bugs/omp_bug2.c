@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+//run-time bug
 int main(int argc, char *argv[]) {
   int nthreads, i, tid;
   float total;
@@ -22,7 +23,7 @@ int main(int argc, char *argv[]) {
     }
     printf("Thread %d is starting...\n", tid);
 
-#pragma omp barrier
+    #pragma omp barrier
 
     /* do some work */
     total = 0.0;
