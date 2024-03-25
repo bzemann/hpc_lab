@@ -38,13 +38,13 @@ if __name__ == "__main__":
     
     print("Strong Scaling")
     print("Parallel:")
-    for i in range(4):
+    for i in range(8):
         num_threads = 2 ** i
         nthreads.append(num_threads)
         
         print(f"Running with OMP_NUM_THREADS = {num_threads}")
-        run_stron(num_threads, 4, "./hist_omp", par_time_avg)
+        run_stron(num_threads, 6, "./hist_omp", par_time_avg)
         
-    run_stron(1, 4, "./hist_seq", seq_time_avg)
+    run_stron(1, 6, "./hist_seq", seq_time_avg)
     print("begin plotting")
     plot_stron(nthreads, seq_time_avg, par_time_avg)
