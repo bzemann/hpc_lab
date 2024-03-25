@@ -1,4 +1,5 @@
 CC ?= gcc
+#CC = gcc-13
 
 all: recur_seq recur_omp
 

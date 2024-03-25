@@ -5,6 +5,7 @@
 
 int main(int argc, char *argv[]) {
   int N = 2000000000;
+  //int N = 200000;
   double up = 1.00000001;
   double Sn = 1.00000001;
   int n;
