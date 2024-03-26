@@ -20,4 +20,4 @@ walltime.o: walltime.c walltime.h
 
 .PHONY: clean
 clean:
-	$(RM) *.o quicksort quicksort_par
+	$(RM) *.o quicksort_se_seq quicksort_par

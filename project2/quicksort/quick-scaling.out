@@ -1,0 +1,107 @@
+rm -f *.o quicksort quicksort_par
+gcc -c -O3 -fopenmp quicksort_seq.c
+gcc -c -O3 -fopenmp walltime.c
+gcc -O3 -fopenmp quicksort_seq.o walltime.o -o quicksort_seq
+gcc -c -O3 -fopenmp quicksort_par.c
+gcc -O3 -fopenmp quicksort_par.o walltime.o -o quicksort_par
+Parallel Quicksor
+Size of dataset: 1000000000, elapsed time[s] 3.142475e+02 
+
+Size of dataset: 1000000000, elapsed time[s] 3.153435e+02 
+
+Size of dataset: 1000000000, elapsed time[s] 3.155225e+02 
+
+Size of dataset: 1000000000, elapsed time[s] 3.044545e+02 
+
+Size of dataset: 1000000000, elapsed time[s] 3.083113e+02 
+
+Parallel Quicksor
+Size of dataset: 1000000000, elapsed time[s] 9.869416e+01 
+
+Size of dataset: 1000000000, elapsed time[s] 1.039540e+02 
+
+Size of dataset: 1000000000, elapsed time[s] 1.009118e+02 
+
+Size of dataset: 1000000000, elapsed time[s] 9.542184e+01 
+
+Size of dataset: 1000000000, elapsed time[s] 1.035342e+02 
+
+Parallel Quicksor
+Size of dataset: 1000000000, elapsed time[s] 6.787214e+01 
+
+Size of dataset: 1000000000, elapsed time[s] 6.892619e+01 
+
+Size of dataset: 1000000000, elapsed time[s] 7.017667e+01 
+
+Size of dataset: 1000000000, elapsed time[s] 6.954480e+01 
+
+Size of dataset: 1000000000, elapsed time[s] 6.785590e+01 
+
+Parallel Quicksor
+Size of dataset: 1000000000, elapsed time[s] 4.782727e+01 
+
+Size of dataset: 1000000000, elapsed time[s] 5.066688e+01 
+
+Size of dataset: 1000000000, elapsed time[s] 5.532303e+01 
+
+Size of dataset: 1000000000, elapsed time[s] 5.122583e+01 
+
+Size of dataset: 1000000000, elapsed time[s] 5.558193e+01 
+
+Parallel Quicksor
+Size of dataset: 1000000000, elapsed time[s] 4.334036e+01 
+
+Size of dataset: 1000000000, elapsed time[s] 3.757365e+01 
+
+Size of dataset: 1000000000, elapsed time[s] 4.833979e+01 
+
+Size of dataset: 1000000000, elapsed time[s] 4.459080e+01 
+
+Size of dataset: 1000000000, elapsed time[s] 4.306029e+01 
+
+Parallel Quicksor
+Size of dataset: 1000000000, elapsed time[s] 3.748872e+01 
+
+Size of dataset: 1000000000, elapsed time[s] 3.415914e+01 
+
+Size of dataset: 1000000000, elapsed time[s] 3.967335e+01 
+
+Size of dataset: 1000000000, elapsed time[s] 3.232931e+01 
+
+Size of dataset: 1000000000, elapsed time[s] 3.991831e+01 
+
+Parallel Quicksor
+Size of dataset: 1000000000, elapsed time[s] 3.836756e+01 
+
+Size of dataset: 1000000000, elapsed time[s] 4.075897e+01 
+
+Size of dataset: 1000000000, elapsed time[s] 3.407950e+01 
+
+Size of dataset: 1000000000, elapsed time[s] 4.009691e+01 
+
+Size of dataset: 1000000000, elapsed time[s] 4.161348e+01 
+
+Parallel Quicksor
+Size of dataset: 1000000000, elapsed time[s] 3.760050e+01 
+
+Size of dataset: 1000000000, elapsed time[s] 3.728910e+01 
+
+Size of dataset: 1000000000, elapsed time[s] 3.845442e+01 
+
+Size of dataset: 1000000000, elapsed time[s] 3.437617e+01 
+
+Size of dataset: 1000000000, elapsed time[s] 3.660475e+01 
+
+averge parallel times: [311.57586000000003, 100.5032, 68.87514000000002, 52.12498800000001, 43.380978, 36.713766, 38.983284000000005, 36.864988]
+Serial Quicksort
+Size of dataset: 1000000000, elapsed time[s] 3.019135e+02 
+
+Size of dataset: 1000000000, elapsed time[s] 3.029144e+02 
+
+Size of dataset: 1000000000, elapsed time[s] 2.904337e+02 
+
+Size of dataset: 1000000000, elapsed time[s] 3.018708e+02 
+
+Size of dataset: 1000000000, elapsed time[s] 2.974352e+02 
+
+serial time average: 298.91351999999995

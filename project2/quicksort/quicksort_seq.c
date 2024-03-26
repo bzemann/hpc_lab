@@ -59,7 +59,7 @@ int main(int argc, char **argv) {
 
   int i, j, k;
 
-  length = 1000000000;
+  length = 1000000;
   if (argc > 1) length = atoi(argv[1]);
 
   data = (double*)malloc(length * sizeof(double));

@@ -69,3 +69,4 @@ if __name__ == "__main__":
     print("Serial Quicksort")
     seq_time_avg = run_seq("./quicksort_seq", 5)
     print(f"serial time average: {seq_time_avg}")
+    plot_strong(nthreads, par_time_avg, seq_time_avg)
