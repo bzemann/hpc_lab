@@ -60,8 +60,7 @@ double hpc_dot(Field const& x, Field const& y, const int N) {
 // x is a vector on length N
 double hpc_norm2(Field const& x, const int N) {
     double result = 0;
-
-    //TODO
+    result = hpc_dot(x, x, N);
     return sqrt(result);
 }
 
@@ -69,8 +68,9 @@ double hpc_norm2(Field const& x, const int N) {
 // x is a vector on length N
 // value is a scalar
 void hpc_fill(Field& x, const double value, const int N) {
-    //TODO
-
+    for(int i = 0; i < N; i++){
+        x[i] = value;
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -81,7 +81,9 @@ void hpc_fill(Field& x, const double value, const int N) {
 // x and y are vectors on length N
 // alpha is a scalar
 void hpc_axpy(Field& y, const double alpha, Field const& x, const int N) {
-    //TODO
+    for(int i = 0; i < N; i++){
+        y[i] += x[i] * alpha;
+    }
 }
 
 // computes y = x + alpha*(l-r)
@@ -89,7 +91,9 @@ void hpc_axpy(Field& y, const double alpha, Field const& x, const int N) {
 // alpha is a scalar
 void hpc_add_scaled_diff(Field& y, Field const& x, const double alpha,
                          Field const& l, Field const& r, const int N) {
-    //TODO
+    for(int i = 0; i < N; i++){
+        y[i] = x[i] + alpha * (l[i] - r[i]);
+    }
 }
 
 // computes y = alpha*(l-r)
@@ -97,14 +101,18 @@ void hpc_add_scaled_diff(Field& y, Field const& x, const double alpha,
 // alpha is a scalar
 void hpc_scaled_diff(Field& y, const double alpha, Field const& l,
                      Field const& r, const int N) {
-    //TODO
+    for(int i = 0; i < N; i++){
+        y[i] = alpha * (l[i] - r[i]);
+    }
 }
 
 // computes y := alpha*x
 // alpha is scalar
 // y and x are vectors on length n
 void hpc_scale(Field& y, const double alpha, Field const& x, const int N) {
-    //TODO
+    for(int i = 0; i < N; i++){
+        y[i] = alpha * x[i];
+    }
 }
 
 // computes linear combination of two vectors y := alpha*x + beta*z
@@ -112,13 +120,17 @@ void hpc_scale(Field& y, const double alpha, Field const& x, const int N) {
 // y, x and z are vectors on length n
 void hpc_lcomb(Field& y, const double alpha, Field const& x, const double beta,
                Field const& z, const int N) {
-    //TODO
+    for(int i = 0; i < N; i++){
+        y[i] = alpha * x[i] + beta * z[i];
+    }
 }
 
 // copy one vector into another y := x
 // x and y are vectors of length N
 void hpc_copy(Field& y, Field const& x, const int N) {
-    //TODO
+    for(int i = 0; i < N; i++){
+        y[i] = x[i];
+    }
 }
 
 // conjugate gradient solver
