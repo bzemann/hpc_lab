@@ -26,3 +26,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
 file(GLOB SOURCES "*.cpp")
 
 add_executable(mini_app ${SOURCES})
+
+if(OpenMP_CXX_FOUND)
+    target_link_libraries(mini_app PUBLIC OpenMP::OpenMP_CXX)
+endif()
