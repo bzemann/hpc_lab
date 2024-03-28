@@ -36,8 +36,12 @@ void diffusion(data::Field const& s_old, data::Field const& s_new,
     // the interior grid points
     for (int j=1; j < jend; j++) {
         for (int i=1; i < iend; i++) {
-            //TODO
             // f(i,j) = ...
+            f(i, j) = -(4. + alpha) * s_new(i, j)
+                      + s_new(i - 1, j) + s_new(i + 1, j)
+                      + s_new(i, j - 1) + s_new(i, j + 1)
+                      + beta * s_new(i, j) * (1. - s_new(i, j))
+                      + alpha * s_old(i, j);
 
         }
     }
