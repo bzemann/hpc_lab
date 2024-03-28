@@ -33,9 +33,11 @@ void diffusion(data::Field const& s_old, data::Field const& s_new,
     int iend  = nx - 1;
     int jend  = nx - 1;
 
-    // the interior grid points
-    for (int j=1; j < jend; j++) {
-        for (int i=1; i < iend; i++) {
+// assumption: data is double data, a cacheline has 64 bytes <=> 8 doubles
+// assure that 2 threads cannot share the same cacheline
+#pragma omp parallel for schedule(static, 8) private(alpha, beta)
+    for (int i=1; i < iend; i++) {
+        for (int j=1; j < jend; j++) {
             // f(i,j) = ...
             f(i, j) = -(4. + alpha) * s_new(i, j)
                       + s_new(i - 1, j) + s_new(i + 1, j)
@@ -49,6 +51,7 @@ void diffusion(data::Field const& s_old, data::Field const& s_new,
     // east boundary
     {
         int i = nx - 1;
+    #pragma omp parallel for schedule(static, 8) private(alpha, beta)
         for (int j = 1; j < jend; j++) {
             f(i,j) = -(4. + alpha) * s_new(i,j)
                    + s_new(i-1,j) + bndE[j]
@@ -61,6 +64,7 @@ void diffusion(data::Field const& s_old, data::Field const& s_new,
     // west boundary
     {
         int i = 0;
+    #pragma omp parallel for schedule(static, 8) private(alpha, beta)
         for (int j = 1; j < jend; j++) {
             f(i,j) = -(4. + alpha) * s_new(i,j)
                    + bndW[j]      + s_new(i+1,j)
@@ -84,6 +88,7 @@ void diffusion(data::Field const& s_old, data::Field const& s_new,
         }
 
         // north boundary
+    #pragma omp parallel for private(alpha, beta)
         for (int i = 1; i < iend; i++) {
             f(i,j) = -(4. + alpha) * s_new(i,j)
                    + s_new(i-1,j) + s_new(i+1,j)
@@ -116,6 +121,7 @@ void diffusion(data::Field const& s_old, data::Field const& s_new,
         }
 
         // south boundary
+    #pragma omp parallel for private(alpha, beta)
         for (int i = 1; i < iend; i++) {
             f(i,j) = -(4. + alpha) * s_new(i,j)
                    + s_new(i-1,j) + s_new(i+1,j)
