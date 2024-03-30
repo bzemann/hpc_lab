@@ -55,24 +55,59 @@ def run_euler(nthreads, exe_path, args, n_runs, arr_time_avg):
 
 
 if __name__ == "__main__":
-    seq_time_avg = 0
-    par_time_avg = []
+    #seq time averages for each mesh size
+    seq_time_avg1 = 0
+    seq_time_avg2 = 0
+    seq_time_avg3 = 0
+    seq_time_avg4 = 0
+    seq_time_avg5 = 0
+    
+    #par time averages for each mesh size
+    par_time_avg1 = []
+    par_time_avg2 = []
+    par_time_avg3 = []
+    par_time_avg4 = []
+    par_time_avg5 = []
     
     n_threads = []
     
-    args = ['64', '100', '0.005']
+    args1 = ['64', '100', '0.005']
+    args2 = ['128', '100', '0.005']
+    args3 = ['256', '100', '0.005']
+    args4 = ['512', '100', '0.005']
+    args5 = ['1024', '100', '0.005']
     
     for i in range(5):
         num_threads = 2 ** i
-        print(f"num threads: {num_threads}")
         n_threads.append(num_threads)
         
 
         print(f"OMP_NUM_THREADS = {num_threads}")
         run_local(num_threads, "build/main", args, 3, par_time_avg)
-        #run_euler(num_threads, "./main", args, 5, par_time_avg)
         
-    seq_time_avg = par_time_avg[0]
+        print("size: 64")
+        run_euler(num_threads, "./main", args1, 5, par_time_avg1)
+        
+        print("size: 128")
+        run_euler(num_threads, "./main", args2, 5, par_time_avg2)
+        
+        print("size: 256")
+        run_euler(num_threads, "./main", args3, 5, par_time_avg3)
+        
+        print("size: 512")
+        run_euler(num_threads, "./main", args4, 5, par_time_avg4)
+        
+        print("size: 1024")
+        run_euler(num_threads, "./main", args5, 5, par_time_avg5)
+        
+    seq_time_avg1 = par_time_avg1[0]
+    seq_time_avg2 = par_time_avg2[0]
+    seq_time_avg3 = par_time_avg3[0]
+    seq_time_avg4 = par_time_avg4[0]
+    seq_time_avg5 = par_time_avg5[0]
     
-    print(f"seq. time avg: {seq_time_avg}")
-    print(f"par. time avg: {par_time_avg}")
+    plot_strong(n_threads, par_time_avg1, seq_time_avg1, "size: 64")
+    plot_strong(n_threads, par_time_avg2, seq_time_avg2, "size: 128")
+    plot_strong(n_threads, par_time_avg3, seq_time_avg3, "size: 256")
+    plot_strong(n_threads, par_time_avg4, seq_time_avg4, "size: 512")
+    plot_strong(n_threads, par_time_avg5, seq_time_avg5, "size: 1024")
