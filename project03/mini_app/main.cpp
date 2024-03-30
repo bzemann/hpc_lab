@@ -18,6 +18,8 @@
 
 #include <stdio.h>
 
+#include <omp.h>
+
 #include "data.h"
 #include "linalg.h"
 #include "operators.h"
@@ -103,12 +105,13 @@ int main(int argc, char* argv[]) {
     double tolerance     = 1.e-6;
 
     // get number of threads
-    int threads = 1; // serial case
+    int threads = omp_get_max_threads(); // serial case
 
    // welcome message
     std::cout << std::string(80, '=') << std::endl;
     std::cout << "                      Welcome to mini-stencil!" << std::endl;
-    std::cout << "version   :: C++ Serial" << std::endl;
+    std::cout << "version   :: C++ openMP " << _OPENMP << std::endl;
+    std::cout << "threads   :: " << threads << std::endl;
     std::cout << "mesh      :: " << options.nx << " * " << options.nx
                                  << " dx = " << options.dx << std::endl;
     std::cout << "time      :: " << nt << " time steps from 0 .. "
