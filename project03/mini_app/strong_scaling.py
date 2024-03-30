@@ -83,7 +83,7 @@ if __name__ == "__main__":
         
 
         print(f"OMP_NUM_THREADS = {num_threads}")
-        run_local(num_threads, "build/main", args, 3, par_time_avg)
+        run_euler(num_threads, "./main", args, 3, par_time_avg)
         
         print("size: 64")
         run_euler(num_threads, "./main", args1, 5, par_time_avg1)
