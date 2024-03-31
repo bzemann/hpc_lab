@@ -30,4 +30,4 @@ main: $(OBJ)
 
 .PHONY: clean
 clean:
-	$(RM) main $(OBJ) output.*
+	$(RM) main $(OBJ) *.bin *.bov
