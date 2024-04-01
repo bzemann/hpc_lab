@@ -19,5 +19,5 @@ make clean
 make
 
 #run strong scaling
-python strong_scaling.py
+python weak_scaling.py
 python plot.py
