@@ -13,6 +13,18 @@ def plot_strong(nthreads, arr_time_avg, time_avg, label):
     plt.title('Strong Scaling')
     plt.savefig('strong.pdf')
 
+def plot_time(nthreads, arr_time_avg, label, name):
+    time = np.array(arr_time_avg)
+    
+    plt.clf()
+    
+    plt.plot(nthreads, time, label=label)
+    plt.xlabel('nthreads')
+    plt.ylabel('avg. time')
+    plt.legend()
+    plt.yscale('log')
+    plt.savefig(name)
+
 def run_local(nthreads, exe_path, args, n_runs, arr_time_avg):
     tot_time = 0
     env = {'OMP_NUM_THREADS': str(nthreads)}
@@ -77,6 +89,12 @@ if __name__ == "__main__":
     args4 = ['512', '100', '0.005']
     args5 = ['1024', '100', '0.005']
     
+    #warmup run
+    commands = ["./main"] + args1
+    env = {'OMP_NUM_THREADS': str(nthreads)}
+    print("Warmup run")
+    res = sp.run(commands, env=env)
+    
     for i in range(5):
         num_threads = 2 ** i
         n_threads.append(num_threads)
@@ -110,3 +128,10 @@ if __name__ == "__main__":
     plot_strong(n_threads, par_time_avg3, seq_time_avg3, "size: 256")
     plot_strong(n_threads, par_time_avg4, seq_time_avg4, "size: 512")
     plot_strong(n_threads, par_time_avg5, seq_time_avg5, "size: 1024")
+    
+    #plot time
+    plot_time(n_threads, par_time_avg1, "size 64", "time_64.pdf")
+    plot_time(n_threads, par_time_avg2, "size 128", "time_128.pdf")
+    plot_time(n_threads, par_time_avg3, "size 256", "time_256.pdf")
+    plot_time(n_threads, par_time_avg4, "size 512", "time_512.pdf")
+    plot_time(n_threads, par_time_avg5, "size 1024", "time_1024.pdf")
