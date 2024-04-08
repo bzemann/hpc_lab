@@ -1,0 +1,22 @@
+rm -f main walltime.o   stats.o   data.o   operators.o   linalg.o   main.o output.*
+g++ -O3 -fopenmp -c walltime.cpp
+g++ -O3 -fopenmp -c stats.cpp
+g++ -O3 -fopenmp -c data.cpp
+g++ -O3 -fopenmp -c operators.cpp
+g++ -O3 -fopenmp -c linalg.cpp
+g++ -O3 -fopenmp -c main.cpp
+g++ -O3 -fopenmp walltime.o   stats.o   data.o   operators.o   linalg.o   main.o -o main
+================================================================================
+                      Welcome to mini-stencil!
+version   :: C++ Serial
+mesh      :: 128 * 128 dx = 0.00787402
+time      :: 100 time steps from 0 .. 0.005
+iteration :: CG 300, Newton 50, tolerance 1e-06
+================================================================================
+--------------------------------------------------------------------------------
+simulation took 0.51141 seconds
+1511 conjugate gradient iterations, at rate of 2954.58 iters/second
+300 newton iterations
+--------------------------------------------------------------------------------
+### 1, 128, 100, 1511, 300, 0.51141 ###
+Goodbye!

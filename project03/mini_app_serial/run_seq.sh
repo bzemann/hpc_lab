@@ -23,14 +23,3 @@ make
 
 #plot result
 python plot.py
-
-#compile
-make clean
-make 
-
-#run fisher
-./main
-
-#plot result
-python plot.py
-module load python/3.11.6
