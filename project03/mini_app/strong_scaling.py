@@ -18,7 +18,7 @@ def plot_time(nthreads, arr_time_avg, label, name):
     
     plt.clf()
     
-    plt.plot(nthreads, time, label=label)
+    plt.plot(nthreads, time, marker='o', linestyle='', label=label)
     plt.xlabel('nthreads')
     plt.ylabel('avg. time')
     plt.legend()
