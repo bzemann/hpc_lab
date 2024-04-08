@@ -91,7 +91,7 @@ if __name__ == "__main__":
     
     #warmup run
     commands = ["./main"] + args1
-    env = {'OMP_NUM_THREADS': str(nthreads)}
+    env = {'OMP_NUM_THREADS': str(1)}
     print("Warmup run")
     res = sp.run(commands, env=env)
     

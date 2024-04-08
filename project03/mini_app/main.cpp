@@ -18,7 +18,9 @@
 
 #include <stdio.h>
 
-#include <omp.h>
+#ifdef _OPENMP
+	#include <omp.h>
+#endif
 
 #include "data.h"
 #include "linalg.h"
@@ -105,9 +107,13 @@ int main(int argc, char* argv[]) {
     double tolerance     = 1.e-6;
 
     // get number of threads
-    int threads = omp_get_max_threads(); // serial case
+    int threads = 1 // serial case
+    
+    #ifdef _OPENMP
+    	threads = omp_get_max_threads(); //parallel case
+    #endif
 
-   // welcome message
+    // welcome message
     std::cout << std::string(80, '=') << std::endl;
     std::cout << "                      Welcome to mini-stencil!" << std::endl;
     std::cout << "version   :: C++ openMP " << _OPENMP << std::endl;
