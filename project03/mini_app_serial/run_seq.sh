@@ -19,7 +19,7 @@ make clean
 make 
 
 #run fisher
-./main
+./main 128 100 0.005
 
 #plot result
 python plot.py
