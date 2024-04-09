@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
 import subprocess as sp
 import re
 
@@ -7,6 +8,7 @@ def plot_strong(nthreads, arr_time_avg, time_avg, label):
     speedup = time_avg / np.array(arr_time_avg)
     
     plt.plot(nthreads, speedup, label=label)
+    plt.plot(nthreads, nthreads, 'k--', label='Ideal Speedup')
     plt.xlabel('nthreads')
     plt.ylabel('speedup')
     plt.legend()
@@ -23,7 +25,10 @@ def plot_time(nthreads, arr_time_avg, label, name):
     plt.ylabel('avg. time')
     plt.legend()
     plt.yscale('log')
-    plt.savefig(name)
+    
+    plt.gca().yaxis.set_major_formatter(ticker.ScalarFormatter(useMathText=True, useOffset=False))
+    plt.gca().yaxis.set_minor_formatter(ticker.ScalarFormatter(useMathText=True, useOffset=False))
+    plt.gca().ticklabel_format(axis='y', style='plain')    plt.savefig(name)
 
 def run_local(nthreads, exe_path, args, n_runs, arr_time_avg):
     tot_time = 0

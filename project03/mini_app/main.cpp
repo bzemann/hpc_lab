@@ -107,16 +107,22 @@ int main(int argc, char* argv[]) {
     double tolerance     = 1.e-6;
 
     // get number of threads
-    int threads = 1 // serial case
+    int threads = 1; // serial case
     
     #ifdef _OPENMP
-    	threads = omp_get_max_threads(); //parallel case
+        threads = omp_get_max_threads(); //parallel case
     #endif
 
     // welcome message
     std::cout << std::string(80, '=') << std::endl;
     std::cout << "                      Welcome to mini-stencil!" << std::endl;
-    std::cout << "version   :: C++ openMP " << _OPENMP << std::endl;
+    
+    #ifdef _OPENMP
+        std::cout << "version   :: C++ openMP " << std::endl;
+    #else
+        std::cout << "version   :: C++ Serial " << std::endl;
+    #endif
+        
     std::cout << "threads   :: " << threads << std::endl;
     std::cout << "mesh      :: " << options.nx << " * " << options.nx
                                  << " dx = " << options.dx << std::endl;
