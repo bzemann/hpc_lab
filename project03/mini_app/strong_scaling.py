@@ -113,10 +113,10 @@ if __name__ == "__main__":
     args5 = ['1024', '100', '0.005']
     
     #warmup run
-    commands = ["./main"] + args1
-    env = {'OMP_NUM_THREADS': str(1)}
-    print("Warmup run")
-    res = sp.run(commands, env=env)
+    #commands = ["./main"] + args1
+    #env = {'OMP_NUM_THREADS': str(1)}
+    #print("Warmup run")
+    #res = sp.run(commands, env=env)
     
     for i in range(5):
         num_threads = 2 ** i
