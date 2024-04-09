@@ -28,7 +28,8 @@ def plot_time(nthreads, arr_time_avg, label, name):
     
     plt.gca().yaxis.set_major_formatter(ticker.ScalarFormatter(useMathText=True, useOffset=False))
     plt.gca().yaxis.set_minor_formatter(ticker.ScalarFormatter(useMathText=True, useOffset=False))
-    plt.gca().ticklabel_format(axis='y', style='plain')    plt.savefig(name)
+    plt.gca().ticklabel_format(axis='y', style='plain')    
+    plt.savefig(name)
 
 def run_local(nthreads, exe_path, args, n_runs, arr_time_avg):
     tot_time = 0
