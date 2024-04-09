@@ -4,15 +4,32 @@ import matplotlib.ticker as ticker
 import subprocess as sp
 import re
 
-def plot_strong(nthreads, arr_time_avg, time_avg, label):
-    speedup = time_avg / np.array(arr_time_avg)
+def plot_strong(nthreads, 
+                arr_time_avg1, 
+                arr_time_avg2, 
+                arr_time_avg3, 
+                arr_time_avg4,
+                arr_time_avg5,
+                time_avg1,
+                time_avg2,
+                time_avg3,
+                time_avg4, 
+                time_avg5):
+    speedup1 = time_avg1 / np.array(arr_time_avg1)
+    speedup2 = time_avg2 / np.array(arr_time_avg2)
+    speedup3 = time_avg3 / np.array(arr_time_avg3)
+    speedup4 = time_avg4 / np.array(arr_time_avg4)
+    speedup5 = time_avg5 / np.array(arr_time_avg5)
     
-    plt.plot(nthreads, speedup, label=label)
+    plt.plot(nthreads, speedup1, label='size 64')
+    plt.plot(nthreads, speedup2, label='size 128')
+    plt.plot(nthreads, speedup3, label='size 256')
+    plt.plot(nthreads, speedup4, label='size 512')
+    plt.plot(nthreads, speedup5, label='size 1024')
     plt.plot(nthreads, nthreads, 'k--', label='Ideal Speedup')
     plt.xlabel('nthreads')
     plt.ylabel('speedup')
     plt.legend()
-    plt.title('Strong Scaling')
     plt.savefig('strong.pdf')
 
 def plot_time(nthreads, arr_time_avg, label, name):
@@ -129,11 +146,17 @@ if __name__ == "__main__":
     seq_time_avg4 = par_time_avg4[0]
     seq_time_avg5 = par_time_avg5[0]
     
-    plot_strong(n_threads, par_time_avg1, seq_time_avg1, "size: 64")
-    plot_strong(n_threads, par_time_avg2, seq_time_avg2, "size: 128")
-    plot_strong(n_threads, par_time_avg3, seq_time_avg3, "size: 256")
-    plot_strong(n_threads, par_time_avg4, seq_time_avg4, "size: 512")
-    plot_strong(n_threads, par_time_avg5, seq_time_avg5, "size: 1024")
+    plot_strong(n_threads, 
+                par_time_avg1, 
+                par_time_avg2,
+                par_time_avg3,
+                par_time_avg4,
+                par_time_avg5,
+                seq_time_avg1, 
+                seq_time_avg2,
+                seq_time_avg3,
+                seq_time_avg4,
+                seq_time_avg5)
     
     #plot time
     plot_time(n_threads, par_time_avg1, "size 64", "time_64.pdf")
