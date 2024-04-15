@@ -19,4 +19,4 @@ make clean
 make
 
 #run strong scaling
-python weak_scaling.py
+python weak_scaling1.py
