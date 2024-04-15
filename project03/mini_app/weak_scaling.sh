@@ -20,4 +20,3 @@ make
 
 #run strong scaling
 python weak_scaling.py
-python plot.py
