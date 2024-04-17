@@ -68,12 +68,15 @@ if __name__ == "__main__":
         
         print("run with base 64")
         run_weak(num_threads, "./main", args_tmp0, 5, data_list, 64)
+        result = pd.DataFrame(data_list)
+        result.to_csv('avg_times.csv', index=False, sep=',')
         
         print("run with base 128")
         run_weak(num_threads, "./main", args_tmp1, 5, data_list, 128)
-        
+        result = pd.DataFrame(data_list)
+        result.to_csv('avg_times.csv', index=False, sep=',')
+
         print("run with base 256")
-        run_weak(num_threads, "./main", args_tmp2, 5, data_list, 256)
-        
-    result = pd.DataFrame(data_list)
-    result.to_csv('avg_times.csv', index=False, sep=',')       
+        run_weak(num_threads, "./main", args_tmp2, 5, data_list, 256) 
+        result = pd.DataFrame(data_list)
+        result.to_csv('avg_times.csv', index=False, sep=',')       
