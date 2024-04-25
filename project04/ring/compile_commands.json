@@ -1,0 +1,15 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/clang",
+      "-c",
+      "-I/opt/homebrew/Cellar/open-mpi/5.0.3/include",
+      "-o",
+      "ring_sum",
+      "ring_sum.c"
+    ],
+    "directory": "/Users/basilzemann/Library/Mobile Documents/com~apple~CloudDocs/ETH/6.Semester/HPC_lab/hpc_lab/project04/ring",
+    "file": "/Users/basilzemann/Library/Mobile Documents/com~apple~CloudDocs/ETH/6.Semester/HPC_lab/hpc_lab/project04/ring/ring_sum.c",
+    "output": "/Users/basilzemann/Library/Mobile Documents/com~apple~CloudDocs/ETH/6.Semester/HPC_lab/hpc_lab/project04/ring/ring_sum"
+  }
+]

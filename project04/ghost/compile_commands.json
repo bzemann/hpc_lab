@@ -1,0 +1,15 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/clang",
+      "-c",
+      "-I/opt/homebrew/Cellar/open-mpi/5.0.3/include",
+      "-o",
+      "ghost",
+      "ghost.c"
+    ],
+    "directory": "/Users/basilzemann/Library/Mobile Documents/com~apple~CloudDocs/ETH/6.Semester/HPC_lab/hpc_lab/project04/ghost",
+    "file": "/Users/basilzemann/Library/Mobile Documents/com~apple~CloudDocs/ETH/6.Semester/HPC_lab/hpc_lab/project04/ghost/ghost.c",
+    "output": "/Users/basilzemann/Library/Mobile Documents/com~apple~CloudDocs/ETH/6.Semester/HPC_lab/hpc_lab/project04/ghost/ghost"
+  }
+]
