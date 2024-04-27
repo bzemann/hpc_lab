@@ -1,0 +1,30 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/clang",
+      "-c",
+      "-O3",
+      "-I/opt/homebrew/Cellar/open-mpi/5.0.3/include",
+      "-o",
+      "mandel_mpi",
+      "mandel_mpi.c"
+    ],
+    "directory": "/Users/basilzemann/Library/Mobile Documents/com~apple~CloudDocs/ETH/6.Semester/HPC_lab/hpc_lab/project04/mandel",
+    "file": "/Users/basilzemann/Library/Mobile Documents/com~apple~CloudDocs/ETH/6.Semester/HPC_lab/hpc_lab/project04/mandel/mandel_mpi.c",
+    "output": "/Users/basilzemann/Library/Mobile Documents/com~apple~CloudDocs/ETH/6.Semester/HPC_lab/hpc_lab/project04/mandel/mandel_mpi"
+  },
+  {
+    "arguments": [
+      "/usr/bin/clang",
+      "-c",
+      "-O3",
+      "-I/opt/homebrew/Cellar/open-mpi/5.0.3/include",
+      "-o",
+      "mandel_mpi",
+      "pngwriter.c"
+    ],
+    "directory": "/Users/basilzemann/Library/Mobile Documents/com~apple~CloudDocs/ETH/6.Semester/HPC_lab/hpc_lab/project04/mandel",
+    "file": "/Users/basilzemann/Library/Mobile Documents/com~apple~CloudDocs/ETH/6.Semester/HPC_lab/hpc_lab/project04/mandel/pngwriter.c",
+    "output": "/Users/basilzemann/Library/Mobile Documents/com~apple~CloudDocs/ETH/6.Semester/HPC_lab/hpc_lab/project04/mandel/mandel_mpi"
+  }
+]
