@@ -4,8 +4,8 @@
 #SBATCH --ntasks=16
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=1
-#SBATCH --output=job.out
-#SBATCH --error=job.err
+#SBATCH --output=job_mandel-perf.out
+#SBATCH --error=job_mandel-perf.err
 #SBATCH --time=01:20:00
 
 #offset added to x coordinate so that gnuplot does not overlap the bars
