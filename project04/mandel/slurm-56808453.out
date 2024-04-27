@@ -1,0 +1,26 @@
+Lmod has detected the following error: The following module(s) are unknown:
+"/4.8.5"
+
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore-cache load "/4.8.5"
+
+Also make sure that all modulefiles written in TCL start with the string
+#%Module
+
+
+
+
+Due to MODULEPATH changes, the following have been reloaded:
+  1) openmpi/4.1.4
+
+The following have been reloaded with a version change:
+  1) gcc/11.4.0 => gcc/6.3.0
+
+
+Due to MODULEPATH changes, the following have been reloaded:
+  1) openmpi/4.1.4
+
+The following have been reloaded with a version change:
+  1) gcc/6.3.0 => gcc/8.2.0
+
