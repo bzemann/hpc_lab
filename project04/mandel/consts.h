@@ -43,20 +43,20 @@ y direction (p.nx, p.ny) and the coordinates of the current MPI process
 Partition createPartition(int mpi_rank, int mpi_size) {
     Partition p;
 
-    // TODO: determine size of the grid of MPI processes (p.nx, p.ny), see MPI_Dims_create()
+    //determine size of the grid of MPI processes (p.nx, p.ny), see MPI_Dims_create()
     int dims[2] = {0, 0};
     MPI_Dims_create(mpi_size, 2, dims);
     
     p.ny = dims[0];
     p.nx = dims[1];
 
-    // TODO: Create cartesian communicator (p.comm), we do not allow the reordering of ranks here, see MPI_Cart_create()
+    //Create cartesian communicator (p.comm), we do not allow the reordering of ranks here, see MPI_Cart_create()
 
     int period[2] = {0, 0};
     MPI_Cart_create(MPI_COMM_WORLD, 2, dims, period, 0, &p.comm);
     
-    // TODO: Determine the coordinates in the Cartesian grid (p.x, p.y), see MPI_Cart_coords()
-    int coords[2];
+    //Determine the coordinates in the Cartesian grid (p.x, p.y), see MPI_Cart_coords()
+    int coords[2] = {0, 0};
     MPI_Cart_coords(p.comm, mpi_rank, 2, coords);
     p.y = coords[0];
     p.x = coords[1];
@@ -78,8 +78,8 @@ Partition updatePartition(Partition p_old, int mpi_rank) {
     p.nx = p_old.nx;
     p.comm = p_old.comm;
     
-    // TODO: update the coordinates in the cartesian grid (p.x, p.y) for given mpi_rank, see MPI_Cart_coords()
-    int coords[2];
+    //update the coordinates in the cartesian grid (p.x, p.y) for given mpi_rank, see MPI_Cart_coords()
+    int coords[2] = {0, 0};
     MPI_Cart_coords(p.comm, mpi_rank, 2, coords);
     p.y = coords[0];
     p.x = coords[1];
@@ -99,19 +99,16 @@ Domain createDomain(Partition p) {
     Domain d;
     
     // TODO: compute size of the local domain
-    d.nx = IMAGE_WIDTH / p.nx + (p.x < IMAGE_WIDTH % p.nx ? 1 : 0);
-    d.ny = IMAGE_HEIGHT / p.ny + (p.y < IMAGE_HEIGHT % p.ny ? 1 : 0);
+    d.nx = IMAGE_WIDTH / p.nx;
+    d.ny = IMAGE_HEIGHT / p.ny;
 
     // TODO: compute index of the first pixel in the local domain
-    d.startx = p.x * (IMAGE_WIDTH / p.nx) + (p.x < IMAGE_WIDTH % p.nx ? p.x : IMAGE_WIDTH % p.nx);
-    d.starty = p.y * (IMAGE_HEIGHT / p.ny) + (p.y < IMAGE_HEIGHT % p.ny ? p.y : IMAGE_HEIGHT % p.ny);   
+    d.startx = IMAGE_WIDTH / p.nx * p.x;
+    d.starty = IMAGE_HEIGHT / p.ny * p.y;
      
     // TODO: compute index of the last pixel in the local domain
     d.endx = d.startx + d.nx - 1;
-    if(d.endx >= IMAGE_WIDTH) d.endx = IMAGE_WIDTH - 1;
-    
     d.endy = d.starty + d.ny - 1;
-    if(d.endy >= IMAGE_HEIGHT) d.endy = IMAGE_HEIGHT - 1;
 
     return d;
 }
