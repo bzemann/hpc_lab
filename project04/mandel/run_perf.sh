@@ -8,6 +8,12 @@
 #SBATCH --error=job_mandel-perf.err
 #SBATCH --time=01:20:00
 
+module load gcc openmpi 
+module list
+
+make clean
+make 
+
 #offset added to x coordinate so that gnuplot does not overlap the bars
 offset=0 
 
