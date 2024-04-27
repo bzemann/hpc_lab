@@ -103,12 +103,15 @@ Domain createDomain(Partition p) {
     d.ny = IMAGE_HEIGHT / p.ny;
 
     // TODO: compute index of the first pixel in the local domain
-    d.startx = p.x;
-    d.starty = p.y;
+    d.startx = p.x * d.nx;
+    d.starty = p.y * d.ny;
 
     // TODO: compute index of the last pixel in the local domain
     d.endx = d.startx + d.nx - 1;
+    if(d.endx >= IMAGE_WIDTH) d.endx = IMAGE_WIDTH - 1;
+    
     d.endy = d.starty + d.ny - 1;
+    if(d.endy >= IMAGE_HEIGHT) d.endy = IMAGE_HEIGHT - 1;
 
     return d;
 }
