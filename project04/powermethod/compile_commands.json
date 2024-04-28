@@ -1,0 +1,24 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/clang",
+      "-c",
+      "-O3",
+      "-I/opt/homebrew/Cellar/open-mpi/5.0.3/include",
+      "powermethod_rows.c"
+    ],
+    "directory": "/Users/basilzemann/Library/Mobile Documents/com~apple~CloudDocs/ETH/6.Semester/HPC_lab/hpc_lab/project04/powermethod",
+    "file": "/Users/basilzemann/Library/Mobile Documents/com~apple~CloudDocs/ETH/6.Semester/HPC_lab/hpc_lab/project04/powermethod/powermethod_rows.c"
+  },
+  {
+    "arguments": [
+      "/usr/bin/clang",
+      "-c",
+      "-O3",
+      "-I/opt/homebrew/Cellar/open-mpi/5.0.3/include",
+      "walltime.c"
+    ],
+    "directory": "/Users/basilzemann/Library/Mobile Documents/com~apple~CloudDocs/ETH/6.Semester/HPC_lab/hpc_lab/project04/powermethod",
+    "file": "/Users/basilzemann/Library/Mobile Documents/com~apple~CloudDocs/ETH/6.Semester/HPC_lab/hpc_lab/project04/powermethod/walltime.c"
+  }
+]
