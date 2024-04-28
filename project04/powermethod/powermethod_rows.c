@@ -68,6 +68,17 @@ int main(int argc, char* argv[]) {
   //        processes.
   // Hint : The first "n % size" processes get "n / size + 1" rows, while the
   //        remaining processes get "n / size".
+  nrows_local = rank < n % size ? n / size + 1: n / size;
+  row_beg_local = rank < n % size ? rank * nrows_local: (n % size) * (n / size + 1) + (rank - (n % size)) * nrows_local;
+  row_end_local = row_beg_local + nrows_local - 1;
+
+  int recv_elem_count[size];
+  int displ[size];
+
+  for(int i = 0; i < size; i++){
+    recv_elem_count[i] = (i < n % size) ? n / size + 1: n / size;
+    displ[i] = i == 0 ? 0: displ[i - 1] + recv_elem_count[i - 1];
+  }
 
   // Initialize matrix A
   double* A = (double*) calloc(nrows_local*n, sizeof(double));
@@ -130,6 +141,12 @@ int main(int argc, char* argv[]) {
   }
   // To do: Broadcast the random initial guess vector to all MPI processes.
   // Hint : MPI_Bcast.
+  int mpi_err = MPI_Bcast(y, n, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+  if(mpi_err != MPI_SUCCESS){
+    if(rank = 0) printf("Error: MPI_Bcast failed\n");
+    MPI_Abort(MPI_COMM_WORLD, 1);
+    return 1;
+  }
 
   // Power method
   double theta, error;
@@ -160,6 +177,13 @@ int main(int argc, char* argv[]) {
         y[i_local] += A[i_local*n + j_global]*v[j_global];
       }
     }
+    mpi_err = MPI_Allgatherv(y_local, nrows_local, MPI_DOUBLE, y, recv_elem_count, displ, MPI_DOUBLE, MPI_COMM_WORLD);
+    if(mpi_err != MPI_SUCCESS){
+      if(rank == 0) printf("Error: MPI_Allgatherv failed\n");
+      MPI_Abort(MPI_COMM_WORLD, 1);
+      return 1;
+    }
+    
     // Compute eigenvalue: theta = v^T y
     theta = 0.;
     for (int i_global = 0; i_global < n; ++i_global) {
