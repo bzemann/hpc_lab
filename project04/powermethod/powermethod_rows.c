@@ -19,7 +19,6 @@
 *******************************************************************************/
 
 int main(int argc, char* argv[]) {
-
   // Seed random number generator
   srand(42);
 
@@ -59,25 +58,25 @@ int main(int argc, char* argv[]) {
   }
 
   // Partition work evenly among processes
-  int nrows_local = n;
-  int row_beg_local = 0;
-  int row_end_local = row_beg_local + nrows_local - 1;
-  printf("[Proc %3d] Doing rows %d to %d\n", rank, row_beg_local,
-         row_end_local);
-  // To do: Partition the "n" rows of the matrix evenly among the "size" MPI
-  //        processes.
-  // Hint : The first "n % size" processes get "n / size + 1" rows, while the
-  //        remaining processes get "n / size".
+  int nrows_local;
+  int row_beg_local;
+  int row_end_local;
+  // Partition the "n" rows of the matrix evenly among the "size" MPI processes.
+  // The first "n % size" processes get "n / size + 1" rows, while the
+  // remaining processes get "n / size".
   nrows_local = rank < n % size ? n / size + 1: n / size;
-  row_beg_local = rank < n % size ? rank * nrows_local: (n % size) * (n / size + 1) + (rank - (n % size)) * nrows_local;
+  row_beg_local = rank < n % size ? rank * nrows_local
+                                  : (n % size) * (n / size + 1) + (rank - (n % size)) * nrows_local;
   row_end_local = row_beg_local + nrows_local - 1;
+  // printf("[Proc %3d] Doing rows %d to %d\n", rank, row_beg_local,
+  //        row_end_local);
 
-  int recv_elem_count[size];
-  int displ[size];
-
-  for(int i = 0; i < size; i++){
-    recv_elem_count[i] = (i < n % size) ? n / size + 1: n / size;
-    displ[i] = i == 0 ? 0: displ[i - 1] + recv_elem_count[i - 1];
+  // Arrays for MPI_Allgatherv
+  int recvcounts[size];
+  int displs[size];
+  for (int i = 0; i < size; ++i) {
+    recvcounts[i] = (i < n % size) ? n / size + 1 : n / size;
+    displs[i] = i == 0 ? 0 : displs[i - 1] + recvcounts[i - 1];
   }
 
   // Initialize matrix A
@@ -142,14 +141,16 @@ int main(int argc, char* argv[]) {
   // To do: Broadcast the random initial guess vector to all MPI processes.
   // Hint : MPI_Bcast.
   int mpi_err = MPI_Bcast(y, n, MPI_DOUBLE, 0, MPI_COMM_WORLD);
-  if(mpi_err != MPI_SUCCESS){
-    if(rank = 0) printf("Error: MPI_Bcast failed\n");
+  if (mpi_err != MPI_SUCCESS) {
+    if (rank == 0) printf("Error: MPI_Bcast failed!\n");
     MPI_Abort(MPI_COMM_WORLD, 1);
     return 1;
   }
+  
 
   // Power method
-  double theta, error;
+  double theta , error;
+  theta = 0.;
   double* y_local = (double*) calloc(nrows_local, sizeof(double));
   double* v       = (double*) calloc(n, sizeof(double));
   int iter;
@@ -172,18 +173,19 @@ int main(int argc, char* argv[]) {
     // Hint: Compute only the local rows, save them in the buffer y_local
     //       and synchronize the result using MPI_Allgather / MPI_Allgatherv.
     for (int i_local = 0; i_local < nrows_local; ++i_local) {
-      y[i_local] = 0.;
+      y_local[i_local] = 0.;
       for (int j_global = 0; j_global < n; ++j_global) {
-        y[i_local] += A[i_local*n + j_global]*v[j_global];
+        y_local[i_local] += A[i_local*n + j_global]*v[j_global];
       }
     }
-    mpi_err = MPI_Allgatherv(y_local, nrows_local, MPI_DOUBLE, y, recv_elem_count, displ, MPI_DOUBLE, MPI_COMM_WORLD);
-    if(mpi_err != MPI_SUCCESS){
-      if(rank == 0) printf("Error: MPI_Allgatherv failed\n");
+
+    // Synchronize y_local to y
+    mpi_err = MPI_Allgatherv(y_local, nrows_local, MPI_DOUBLE, y, recvcounts, displs, MPI_DOUBLE, MPI_COMM_WORLD);
+    if (mpi_err != MPI_SUCCESS) {
+      if (rank == 0) printf("Error: MPI_Allgatherv failed!\n");
       MPI_Abort(MPI_COMM_WORLD, 1);
       return 1;
     }
-    
     // Compute eigenvalue: theta = v^T y
     theta = 0.;
     for (int i_global = 0; i_global < n; ++i_global) {
@@ -196,8 +198,8 @@ int main(int argc, char* argv[]) {
               *(y[i_global] - theta*v[i_global]);
     }
     error = sqrt(error2);
-    if (rank == 0) printf("iteration / theta/ error: %4d / %15.5f / %25.15e\n",
-                          iter, theta, error);
+    // if (rank == 0) printf("iteration / theta/ error: %4d / %15.5f / %25.15e\n",
+    //                       iter, theta, error);
     if (error < tol*fabs(theta)) break;
   }
   double time_end = walltime();
