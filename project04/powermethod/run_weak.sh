@@ -21,7 +21,7 @@ sizes=(1 1.414 2 2.828 4 5.657 8)
 
 for i in "${!procs[@]}"; do
   echo "num MPI processses: $p"
-  for repeat in {1..60}; do
+  for repeat in {1..52}; do
     p=${procs[$i]}
     s=$(echo "${sizes[$i]} * 1000" | bc)
     output=$(mpirun -np $p ./powermethod_rows 3 $s 3000 -1e-6) 
