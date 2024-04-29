@@ -1,0 +1,12 @@
+rm -f *.o powermethod_rows
+mpicc -c -O3  powermethod_rows.c
+mpicc -c -O3  walltime.c
+mpicc -lm  powermethod_rows.o walltime.o -o powermethod_rows
+num MPI processses: 1
+num MPI processses: 2
+num MPI processses: 4
+num MPI processses: 8
+num MPI processses: 16
+num MPI processses: 32
+num MPI processses: 64
+DONE

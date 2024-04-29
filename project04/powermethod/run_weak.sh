@@ -13,7 +13,7 @@ make clean
 module load gcc openmpi
 make
 
-OUTPUT_FILE="weak_time.csv"
+OUTPUT_FILE="weak_time-median.csv"
 echo "Num-processes,Time" > "$OUTPUT_FILE"
 #array of num MPI processes
 procs=(1 2 4 8 16 32 64)
