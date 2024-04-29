@@ -20,7 +20,7 @@ procs=(1 2 4 8 16 32 64)
 
 for p in "${procs[@]}"; do
   echo "num MPI processses: $p"
-  for repeat in {1..10}; do
+  for repeat in {1..25}; do
     output=$(mpirun -np $p ./powermethod_rows 3 10000 3000 -1e-6) 
     time=$(echo "$output" | grep -o "in [0-9]*\.[0-9]* second(s)" | awk '{print $2}')
     echo "$p,$time" >> "$OUTPUT_FILE"
