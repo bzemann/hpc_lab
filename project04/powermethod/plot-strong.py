@@ -8,7 +8,7 @@ num_procs = [1, 2, 4, 8, 16, 32, 64]
 path_data = 'strong_time.csv'
 data = pd.read_csv(path_data)
 
-avg_times = data.groupby('Num-processes')['Time'].mean()
+avg_times = data.groupby('Num-processes')['Time'].median()
 avg_times_arr = np.array(avg_times)
 
 plt.plot(num_procs, avg_times_arr, marker='o', linestyle='--')

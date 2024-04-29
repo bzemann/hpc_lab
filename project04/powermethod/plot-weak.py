@@ -9,7 +9,7 @@ path_data = 'weak_time.csv'
 data = pd.read_csv(path_data)
 clean_data = data.dropna(axis=0)
 
-avg_times = clean_data.groupby('Num-processes')['Time'].mean()
+avg_times = clean_data.groupby('Num-processes')['Time'].median()
 avg_times_arr = np.array(avg_times)
 
 plt.plot(num_procs, avg_times_arr, marker='o', linestyle='--')
