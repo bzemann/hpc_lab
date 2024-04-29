@@ -17,7 +17,7 @@ OUTPUT_FILE="weak_time-median.csv"
 echo "Num-processes,Time" > "$OUTPUT_FILE"
 #array of num MPI processes
 procs=(1 2 4 8 16 32 64)
-sizes=(1 1,414 2 2.828 4 5.657 8)
+sizes=(1 1.414 2 2.828 4 5.657 8)
 
 for i in "${!procs[@]}"; do
   echo "num MPI processses: $p"
