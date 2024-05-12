@@ -28,7 +28,7 @@ for s in "${sizes[@]}"; do
     echo "num threads: $t"
     for repeat in {1..20}; do
       output=$(./main $s 100 0.005)
-      time=$(echo "$output" | awk '{print $(NF-1)}')
+      time=$(echo "$output" | grep -oE '[0-9]+\.[0-9]+')
       echo "$s,$t,$time" >> "$OUTPUT_FILE"
     done
   done
