@@ -45,7 +45,7 @@ for run in "${runs[@]}"; do
 
     for repeat in {1..20}; do
       output=$(./main $adjusted_size 100 0.005)
-      time=$(echo "$output" | grep -oE '[0-9]+\.[0-9]+')
+      time=$(echo "$output" | grep -oE 'simulation took [0-9]+\.[0-9]+ seconds' | grep -oE '[0-9]+\.[0-9]+')      
       echo "$adjusted_size,$thread_count,$time" >> "$OUTPUT_FILE"
     done
   done
