@@ -8,11 +8,7 @@
 #SBATCH --mem-per-cpu=1024             # Memory per CPU
 #SBATCH --time=10:00:00                # Wall clock time limit
 
-module load gcc
 module list
-
-make clean
-make
 
 OUTPUT_FILE="weak_time.csv"
 echo "Base-Size,Size,Threads,Time" > "$OUTPUT_FILE"
@@ -25,12 +21,10 @@ for run in "${runs[@]}"; do
   base_index=$((run - 1))
   base_size=${base_sizes[$base_index]}
 
-  for size_index in "${!base_sizes[@]}"; do
+  for ((i=0; i<4; i++)); do
+    size_index=$((base_index + i))
     adjusted_size=${base_sizes[$size_index]}
-    multiplier=$((adjusted_size / base_size))
-
-    thread_index=$((size_index % ${#threads[@]}))
-    thread_count=${threads[$thread_index]}
+    thread_count=${threads[$i]}
 
     echo "Run: $run, Base Size: $base_size, Size: $adjusted_size, Threads: $thread_count"
 
@@ -42,7 +36,7 @@ for run in "${runs[@]}"; do
       
       # Extracting time information
       time=$(echo "$output" | grep -oE 'simulation took [0-9]+\.[0-9]+ seconds' | grep -oE '[0-9]+\.[0-9]+')      
-      echo "$run,$adjusted_size,$thread_count,$time" >> "$OUTPUT_FILE"
+      echo "$base_size,$adjusted_size,$thread_count,$time" >> "$OUTPUT_FILE"
     done
   done
 done
