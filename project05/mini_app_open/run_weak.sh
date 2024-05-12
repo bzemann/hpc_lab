@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=fisher_omp          # Job name    (default: sbatch)
+#SBATCH --job-name=fisher_omp-w          # Job name    (default: sbatch)
 #SBATCH --output=fisher_omp-weak.out  # Output file (default: slurm-%j.out)
 #SBATCH --error=fisher_omp-weak.err  # Error file  (default: slurm-%j.out)
 #SBATCH --ntasks=1                     # Number of tasks
