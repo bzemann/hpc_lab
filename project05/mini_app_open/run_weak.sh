@@ -29,12 +29,7 @@ for run in "${runs[@]}"; do
     adjusted_size=${base_sizes[$size_index]}
     multiplier=$((adjusted_size / base_size))
 
-    if [ $multiplier -eq 1 ]; then
-      thread_index=0  # For the base size, use 1 thread
-    else
-      thread_index=$((multiplier - 1))  # For sizes > base size, increase thread count accordingly
-    fi
-
+    thread_index=$((size_index % ${#threads[@]}))
     thread_count=${threads[$thread_index]}
 
     echo "Run: $run, Base Size: $base_size, Size: $adjusted_size, Threads: $thread_count"
@@ -46,9 +41,8 @@ for run in "${runs[@]}"; do
       output=$(./main $adjusted_size 100 0.005)
       
       # Extracting time information
-
-      time=$(echo "$output" | grep -oE 'simulation took [0-9]+\.[0-9]+ seconds' | grep -oE '[0-9]+\.[0-9]+')
-      echo "$base_size,$adjusted_size,$thread_count,$time" >> "$OUTPUT_FILE"
+      time=$(echo "$output" | grep -oE 'simulation took [0-9]+\.[0-9]+ seconds' | grep -oE '[0-9]+\.[0-9]+')      
+      echo "$i,$adjusted_size,$thread_count,$time" >> "$OUTPUT_FILE"
     done
   done
 done
