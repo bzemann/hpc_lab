@@ -19,6 +19,8 @@
 #include <cstring>
 #include <stdio.h>
 
+#include <mpi.h>
+
 #include "data.h"
 #include "linalg.h"
 #include "operators.h"
@@ -108,7 +110,8 @@ int main(int argc, char* argv[]) {
     int max_newton_iters = 50;
     double tolerance     = 1.e-6;
 
-    // TODO: initialize MPI
+    // initialize MPI
+    MPI_Init(&argc, &argv);
     int size = 1, rank = 0;
 
     // TODO: initialize sub-domain (data.{h,cpp})
@@ -119,18 +122,25 @@ int main(int argc, char* argv[]) {
     int N  = domain.N;
     int nt  = options.nt;
 
-    // TODO: Modify welcome message
-    std::cout << std::string(80, '=') << std::endl;
-    std::cout << "                      Welcome to mini-stencil!" << std::endl;
-    std::cout << "version   :: C++ Serial" << std::endl;
-    std::cout << "mesh      :: " << options.nx << " * " << options.nx
-                                 << " dx = " << options.dx << std::endl;
-    std::cout << "time      :: " << nt << " time steps from 0 .. "
-                                       << options.nt*options.dt << std::endl;
-    std::cout << "iteration :: " << "CG "          << max_cg_iters
-                                 << ", Newton "    << max_newton_iters
-                                 << ", tolerance " << tolerance << std::endl;
-    std::cout << std::string(80, '=') << std::endl;
+    std::string version = "Serial";
+
+    #ifdef MPI_VERSION
+        version = "MPI";
+    #endif
+
+    if(rank == 0){
+        std::cout << std::string(80, '=') << std::endl;
+        std::cout << "                      Welcome to mini-stencil!" << std::endl;
+        std::cout << "version   :: C++ " + version  << std::endl;
+        std::cout << "mesh      :: " << options.nx << " * " << options.nx
+                                     << " dx = " << options.dx << std::endl;
+        std::cout << "time      :: " << nt << " time steps from 0 .. "
+                                           << options.nt*options.dt << std::endl;
+        std::cout << "iteration :: " << "CG "          << max_cg_iters
+                                     << ", Newton "    << max_newton_iters
+                                     << ", tolerance " << tolerance << std::endl;
+        std::cout << std::string(80, '=') << std::endl;
+    }
 
     // allocate global fields
     y_new.init(nx, ny);

@@ -1,0 +1,13 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/clang++",
+      "-O3",
+      "-c",
+      "-I/opt/homebrew/Cellar/open-mpi/5.0.3/include",
+      "main.cpp"
+    ],
+    "directory": "/Users/bz/Library/Mobile Documents/com~apple~CloudDocs/ETH/6.Semester/HPC_lab/hpc_lab/project05/mini_app",
+    "file": "/Users/bz/Library/Mobile Documents/com~apple~CloudDocs/ETH/6.Semester/HPC_lab/hpc_lab/project05/mini_app/main.cpp"
+  }
+]
