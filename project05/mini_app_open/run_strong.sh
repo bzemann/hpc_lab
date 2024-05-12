@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --job-name=fisher_omp          # Job name    (default: sbatch)
-#SBATCH --output=fisher_omp-srong.out  # Output file (default: slurm-%j.out)
+#SBATCH --output=fisher_omp-strong.out # Output file (default: slurm-%j.out)
 #SBATCH --error=fisher_omp-strong.err  # Error file  (default: slurm-%j.out)
 #SBATCH --ntasks=1                     # Number of tasks
 #SBATCH --constraint=EPYC_7763         # Select node with CPU
