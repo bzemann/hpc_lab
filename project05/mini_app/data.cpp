@@ -48,8 +48,9 @@ void SubDomain::init(int mpi_rank, int mpi_size,
     domy = coords[0] + 1;
     domx = coords[1] + 1;
 
-    // TODO: set neighbours for all directions using MPI_Cart_shift
+    //set neighbours for all directions using MPI_Cart_shift
     MPI_Cart_shift(this->comm_cart, 0, -1, &(this->neighbour_north), &(this->neighbour_south));
+    MPI_Cart_shift(this->comm_cart, 0, -1, &(this->neighbour_west), &(this->neighbour_east));
 
     // get bounding box
     nx = discretization.nx / ndomx;

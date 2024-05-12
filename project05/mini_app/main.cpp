@@ -35,10 +35,46 @@ using namespace stats;
 // =============================================================================
 void write_binary(std::string fname, Field &u, SubDomain &domain,
                   Discretization &options) {
-    // TODO: Implement output with MPI-IO
-    FILE* output = fopen(fname.c_str(), "w");
-    fwrite(u.data(), sizeof(double), options.nx * options.nx, output);
-    fclose(output);
+    // Implement output with MPI-IO
+    // FILE* output = fopen(fname.c_str(), "w");
+    // fwrite(u.data(), sizeof(double), options.nx * options.nx, output);
+    // fclose(output);
+    MPI_File filehandle;
+
+    MPI_File_open(domain.comm_cart,
+                  fname.c_str(),
+                  MPI_MODE_CREATE | MPI_MODE_WRONLY, 
+                  MPI_INFO_NULL,
+                  &filehandle);
+
+    MPI_Datatype subarray;
+    int sizes[2]    = {options.nx, options.nx};
+    int subsizes[2] = {domain.nx, domain.ny};
+    int starts[2]   = {domain.startx-1, domain.starty-1};
+    MPI_Type_create_subarray(2, 
+                             sizes, 
+                             subsizes, 
+                             starts,
+                             MPI_ORDER_FORTRAN,
+                             MPI_DOUBLE,
+                             &subarray);
+    MPI_Type_commit(&subarray);
+
+    MPI_Offset disp = 0;
+
+    MPI_File_set_view(filehandle,
+                      disp,
+                      MPI_DOUBLE,
+                      subarray,
+                      "native",
+                      MPI_INFO_NULL);
+    MPI_File_write_all(filehandle,
+                       u.data(),
+                       domain.nx*domain.ny,
+                       MPI_DOUBLE,
+                       MPI_STATUS_IGNORE);
+    MPI_Type_free(&subarray);
+    MPI_File_close(&filehandle);
 }
 
 // read command line arguments
@@ -112,9 +148,12 @@ int main(int argc, char* argv[]) {
 
     // initialize MPI
     MPI_Init(&argc, &argv);
-    int size = 1, rank = 0;
 
-    // TODO: initialize sub-domain (data.{h,cpp})
+    int size = 1, rank = 0;
+    MPI_Comm_size(MPI_COMM_WORLD, &size);
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+
+    // initialize sub-domain (data.{h,cpp})
     domain.init(rank, size, options);
     // domain.print(); // for debugging
     int nx = domain.nx;
@@ -132,6 +171,7 @@ int main(int argc, char* argv[]) {
         std::cout << std::string(80, '=') << std::endl;
         std::cout << "                      Welcome to mini-stencil!" << std::endl;
         std::cout << "version   :: C++ " + version  << std::endl;
+        std::cout << "processes :: " << size << std::endl;
         std::cout << "mesh      :: " << options.nx << " * " << options.nx
                                      << " dx = " << options.dx << std::endl;
         std::cout << "time      :: " << nt << " time steps from 0 .. "
@@ -247,8 +287,8 @@ int main(int argc, char* argv[]) {
     write_binary("output.bin", y_old, domain, options);
 
     // metadata
-    // TODO: Only once process should do the following
-    {
+    // Only once process should do the following
+    if(rank == 0){
         std::ofstream fid("output.bov");
         fid << "TIME: " << options.nt*options.dt << std::endl;
         fid << "DATA_FILE: output.bin" << std::endl;
@@ -267,8 +307,8 @@ int main(int argc, char* argv[]) {
 
     // print table summarizing results
     double timespent = time_end - time_start;
-    // TODO: Only once process should do the following
-    {
+    // Only once process should do the following
+    if(rank == 0){
         std::cout << std::string(80, '-') << std::endl;
         std::cout << "simulation took " << timespent << " seconds" << std::endl;
         std::cout << int(iters_cg)
@@ -286,7 +326,8 @@ int main(int argc, char* argv[]) {
         std::cout << "Goodbye!" << std::endl;
     }
 
-    // TODO: finalize MPI
+    //finalize MPI
+    MPI_Finalize();
 
     return 0;
 }

@@ -7,6 +7,7 @@
 #include <cstdio>
 
 #include "linalg.h"
+#include "mpi.h"
 #include "operators.h"
 #include "stats.h"
 #include "data.h"
@@ -52,7 +53,8 @@ double hpc_dot(Field const& x, Field const& y) {
     for (int i = 0; i < N; i++) {
         result += x[i] * y[i];
     }
-
+        
+    MPI_Allreduce(MPI_IN_PLACE, &result, 1, MPI_DOUBLE, MPI_SUM, data::domain.comm_cart);
     return result;
 }
 
@@ -65,7 +67,8 @@ double hpc_norm2(Field const& x) {
     for (int i = 0; i < N; i++) {
         result += x[i] * x[i];
     }
-
+        
+    MPI_Allreduce(MPI_IN_PLACE, &result, 1, MPI_DOUBLE, MPI_SUM, data::domain.comm_cart);
     return sqrt(result);
 }
 
