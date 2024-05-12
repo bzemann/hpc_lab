@@ -1,0 +1,42 @@
+rm -f walltime.o stats.o data.o operators.o linalg.o main.o walltime_no_omp.o stats_no_omp.o data_no_omp.o operators_no_omp.o linalg_no_omp.o main_no_omp.o main main_seq *.bin *.bov
+g++ -O3 -fopenmp -c walltime.cpp -o walltime.o
+g++ -O3 -fopenmp -c stats.cpp -o stats.o
+g++ -O3 -fopenmp -c data.cpp -o data.o
+g++ -O3 -fopenmp -c operators.cpp -o operators.o
+g++ -O3 -fopenmp -c linalg.cpp -o linalg.o
+g++ -O3 -fopenmp -c main.cpp -o main.o
+g++ -O3 -fopenmp walltime.o stats.o data.o operators.o linalg.o main.o -o main
+g++ -O3 -c walltime.cpp -o walltime_no_omp.o
+g++ -O3 -c stats.cpp -o stats_no_omp.o
+g++ -O3 -c data.cpp -o data_no_omp.o
+g++ -O3 -c operators.cpp -o operators_no_omp.o
+g++ -O3 -c linalg.cpp -o linalg_no_omp.o
+g++ -O3 -c main.cpp -o main_no_omp.o
+g++ -O3 walltime_no_omp.o stats_no_omp.o data_no_omp.o operators_no_omp.o linalg_no_omp.o main_no_omp.o -o main_seq
+Size: 64
+num threads: 1
+num threads: 2
+num threads: 4
+num threads: 8
+num threads: 16
+Size: 128
+num threads: 1
+num threads: 2
+num threads: 4
+num threads: 8
+num threads: 16
+Size: 256
+num threads: 1
+num threads: 2
+num threads: 4
+num threads: 8
+num threads: 16
+Size: 512
+num threads: 1
+num threads: 2
+num threads: 4
+num threads: 8
+num threads: 16
+Size: 1024
+num threads: 1
+num threads: 2

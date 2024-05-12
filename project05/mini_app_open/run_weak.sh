@@ -6,7 +6,7 @@
 #SBATCH --constraint=EPYC_7763         # Select node with CPU
 #SBATCH --cpus-per-task=64             # Number of CPUs per task
 #SBATCH --mem-per-cpu=1024             # Memory per CPU
-#SBATCH --time=10:00:00                # Wall clock time limit
+#SBATCH --time=15:00:00                # Wall clock time limit
 
 module load gcc
 module list
@@ -14,16 +14,21 @@ module list
 make clean
 make
 
-OUTPUT_FILE="strong_time.csv"
-echo "Size,Threads,Time" > "$OUTPUT_FILE"
+OUTPUT_FILE="weak_time.csv"
+echo "Base-Size,Size,Threads,Time" > "$OUTPUT_FILE"
 
 base_sizes=(64 128 256)
 runs=(1 2 3)
 threads=(1 4 16 64)
 
 for run in "${runs[@]}"; do
+  if [ $run -eq 1 ]; then
+    size=${base_sizes[0]}
+  else
+    size=${base_sizes[$((run - 1))]}
+  fi
+
   for i in "${!base_sizes[@]}"; do
-    size=${base_sizes[$i]}
     multiplier=$((2 ** $run))
     adjusted_size=$((size * multiplier))
 
@@ -38,7 +43,7 @@ for run in "${runs[@]}"; do
 
     thread_count=${threads[$thread_index]}
 
-    echo "Run: $run, Size: $adjusted_size, Threads: $thread_count"
+    echo "Run: $run, Base Size: $size,  Size: $adjusted_size, Threads: $thread_count"
 
     OMP_NUM_THREADS=$thread_count
     export OMP_NUM_THREADS
@@ -46,7 +51,7 @@ for run in "${runs[@]}"; do
     for repeat in {1..20}; do
       output=$(./main $adjusted_size 100 0.005)
       time=$(echo "$output" | grep -oE 'simulation took [0-9]+\.[0-9]+ seconds' | grep -oE '[0-9]+\.[0-9]+')      
-      echo "$adjusted_size,$thread_count,$time" >> "$OUTPUT_FILE"
+      echo "$size,$adjusted_size,$thread_count,$time" >> "$OUTPUT_FILE"
     done
   done
 done
