@@ -8,6 +8,7 @@
 #SBATCH --mem-per-cpu=1024             # Memory per CPU
 #SBATCH --time=10:00:00                # Wall clock time limit
 
+module load gcc
 module list
 
 OUTPUT_FILE="weak_time.csv"

@@ -1,0 +1,12 @@
+Run: 1, Base Size: 64, Size: 64, Threads: 1
+Run: 1, Base Size: 64, Size: 128, Threads: 4
+Run: 1, Base Size: 64, Size: 256, Threads: 16
+Run: 1, Base Size: 64, Size: 512, Threads: 64
+Run: 2, Base Size: 128, Size: 128, Threads: 1
+Run: 2, Base Size: 128, Size: 256, Threads: 4
+Run: 2, Base Size: 128, Size: 512, Threads: 16
+Run: 2, Base Size: 128, Size: 1024, Threads: 64
+Run: 3, Base Size: 256, Size: 256, Threads: 1
+Run: 3, Base Size: 256, Size: 512, Threads: 4
+Run: 3, Base Size: 256, Size: 1024, Threads: 16
+Run: 3, Base Size: 256, Size: 2048, Threads: 64
