@@ -10,7 +10,9 @@
 #SBATCH --time=24:00:00
 
 module load gcc openmpi python
-source /cluster/home/grafrap/5/hpc_python/project05_venv/bin/activate
+module list
+
+source /cluster/home/bzemann/hpc_lab/project05/hpc_python/project05-env/bin/activate
 
 # Define the domain size
 domain_width=4001
@@ -28,7 +30,7 @@ echo "Num Workers,Time Taken" > "$results_file_100" # Initialize CSV file with h
 
 # Loop through the number of workers from 2 to 32
 for num_workers in {2..32}; do
-  for repeat in {1..51}; do
+  for repeat in {1..20}; do
     echo "Running with $num_workers workers..."
 
     # Run the program for 50 tasks and capture output

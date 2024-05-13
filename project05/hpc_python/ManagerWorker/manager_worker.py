@@ -120,7 +120,7 @@ def readcmdline(rank):
     return nx, ny, ntasks
 
 
-if _name_ == "_main_":
+if __name__ == "__main__":
 
     # get COMMON WORLD communicator, size & rank
     comm    = MPI.COMM_WORLD

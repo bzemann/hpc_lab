@@ -1,0 +1,19 @@
+
+Currently Loaded Modules:
+  1) StdEnv       3) openmpi/4.1.4     5) python/3.11.6
+  2) gcc/11.4.0   4) openblas/0.3.20
+
+ 
+
+srun: Job 58530917 step creation temporarily disabled, retrying (Requested nodes are busy)
+srun: Step created for StepId=58530917.687
+srun: Job 58530917 step creation temporarily disabled, retrying (Requested nodes are busy)
+srun: Step created for StepId=58530917.710
+srun: Job 58530917 step creation temporarily disabled, retrying (Requested nodes are busy)
+srun: Step created for StepId=58530917.805
+srun: Job 58530917 step creation temporarily disabled, retrying (Requested nodes are busy)
+srun: Step created for StepId=58530917.1077
+srun: Job 58530917 step creation temporarily disabled, retrying (Requested nodes are busy)
+srun: Step created for StepId=58530917.1081
+srun: Job 58530917 step creation temporarily disabled, retrying (Requested nodes are busy)
+srun: Step created for StepId=58530917.1116
