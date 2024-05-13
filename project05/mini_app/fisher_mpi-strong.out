@@ -1,0 +1,38 @@
+rm -f main walltime.o   stats.o   data.o   operators.o   linalg.o   main.o output.*
+mpic++ -O3 -c walltime.cpp
+mpic++ -O3 -c stats.cpp
+mpic++ -O3 -c data.cpp
+mpic++ -O3 -c operators.cpp
+mpic++ -O3 -c linalg.cpp
+mpic++ -O3 -c main.cpp
+mpic++ -O3 walltime.o   stats.o   data.o   operators.o   linalg.o   main.o -o main
+Size: 64
+num threads: 1
+num threads: 2
+num threads: 4
+num threads: 8
+num threads: 16
+Size: 128
+num threads: 1
+num threads: 2
+num threads: 4
+num threads: 8
+num threads: 16
+Size: 256
+num threads: 1
+num threads: 2
+num threads: 4
+num threads: 8
+num threads: 16
+Size: 512
+num threads: 1
+num threads: 2
+num threads: 4
+num threads: 8
+num threads: 16
+Size: 1024
+num threads: 1
+num threads: 2
+num threads: 4
+num threads: 8
+num threads: 16

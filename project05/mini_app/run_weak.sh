@@ -37,8 +37,7 @@ for run in "${runs[@]}"; do
       output=$(mpirun -np $proc_count ./main $adjusted_size 100 0.005)
       
       # Extracting time information
-      time=$(echo "$output" | grep -oE 'simulation took [0-9]+\.[0-9]+ seconds' | grep -oE '[0-9]+\.[0-9]+')      
-      echo "$base_size,$adjusted_size,$proc_count,$time" >> "$OUTPUT_FILE"
+      time=$(echo "$output" | grep -oE 'simulation took [0-9]+\.[0-9]+ seconds' | grep -oE '[0-9]+\.[0-9]+')       
       if [ "$repeat" -ne 1 ]; then
         echo "$base_size,$adjusted_size,$proc_count,$time" >> "$OUTPUT_FILE"
       fi
