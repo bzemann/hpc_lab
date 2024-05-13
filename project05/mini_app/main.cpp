@@ -33,50 +33,40 @@ using namespace operators;
 using namespace stats;
 
 // =============================================================================
-void write_binary(std::string fname, Field &u, SubDomain &domain,
-                  Discretization &options) {
-    // Implement output with MPI-IO
-    // FILE* output = fopen(fname.c_str(), "w");
-    // fwrite(u.data(), sizeof(double), options.nx * options.nx, output);
-    // fclose(output);
+
+// =============================================================================
+void output(char fname[], data::Discretization const* domain,
+            SubDomain const* subdomain, double* data) {
     MPI_File filehandle;
+    MPI_File_open(MPI_COMM_WORLD, fname, MPI_MODE_CREATE | MPI_MODE_WRONLY,
+                  MPI_INFO_NULL, &filehandle);
 
-    MPI_File_open(domain.comm_cart,
-                  fname.c_str(),
-                  MPI_MODE_CREATE | MPI_MODE_WRONLY, 
-                  MPI_INFO_NULL,
-                  &filehandle);
-
-    MPI_Datatype subarray;
-    int sizes[2]    = {options.nx, options.nx};
-    int subsizes[2] = {domain.nx, domain.ny};
-    int starts[2]   = {domain.startx-1, domain.starty-1};
-    MPI_Type_create_subarray(2, 
-                             sizes, 
-                             subsizes, 
-                             starts,
-                             MPI_ORDER_FORTRAN,
-                             MPI_DOUBLE,
-                             &subarray);
-    MPI_Type_commit(&subarray);
+    int sizes[2] = {domain->nx, domain->nx};
+    int subsizes[2] = {subdomain->nx, subdomain->ny};
+    int start[2] = {subdomain->startx, subdomain->starty};
+    MPI_Datatype filetype;
+    MPI_Type_create_subarray(2, sizes, subsizes, start, MPI_ORDER_FORTRAN, MPI_DOUBLE,
+                             &filetype);
+    MPI_Type_commit(&filetype);
 
     MPI_Offset disp = 0;
-
-    MPI_File_set_view(filehandle,
-                      disp,
-                      MPI_DOUBLE,
-                      subarray,
-                      "native",
+    MPI_File_set_view(filehandle, disp, MPI_DOUBLE, filetype, "native",
                       MPI_INFO_NULL);
-    MPI_File_write_all(filehandle,
-                       u.data(),
-                       domain.nx*domain.ny,
-                       MPI_DOUBLE,
-                       MPI_STATUS_IGNORE);
-    MPI_Type_free(&subarray);
+    MPI_File_write_all(filehandle, data, subdomain->nx * subdomain->ny,
+                       MPI_DOUBLE, MPI_STATUS_IGNORE);
+
+
+    MPI_Type_free(&filetype);
     MPI_File_close(&filehandle);
 }
 
+// =============================================================================
+void write_binary(std::string fname, Field& u, SubDomain& domain,
+                  Discretization& options) {
+    // DONE: Implement output with MPI-IO
+    char* cstr = const_cast<char*>(fname.c_str());
+    output(cstr, &options, &domain, u.data());
+}
 // read command line arguments
 void readcmdline(Discretization& options, int argc, char* argv[]) {
     if (argc<4 || argc>5) {

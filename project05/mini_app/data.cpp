@@ -45,21 +45,31 @@ void SubDomain::init(int mpi_rank, int mpi_size,
     //retrieve coordinates of the rank in the topology using
     int coords[2] = {0, 0};
     MPI_Cart_coords(this->comm_cart, mpi_rank, 2, coords);
-    domy = coords[0] + 1;
-    domx = coords[1] + 1;
+    domy = coords[0];
+    domx = coords[1];
 
     //set neighbours for all directions using MPI_Cart_shift
     MPI_Cart_shift(this->comm_cart, 0, -1, &(this->neighbour_north), &(this->neighbour_south));
-    MPI_Cart_shift(this->comm_cart, 1, -1, &(this->neighbour_west), &(this->neighbour_east));
+    MPI_Cart_shift(this->comm_cart, 1, -1, &(this->neighbour_east), &(this->neighbour_west));
 
     // get bounding box
     nx = discretization.nx / ndomx;
     ny = discretization.nx / ndomy;
-    startx = (domx-1)*nx+1;
-    starty = (domy-1)*ny+1;
+    int remainder_x = discretization.nx % ndomx;
+    int remainder_y = discretization.nx % ndomy;
 
-    nx = domx == ndomx ? discretization.nx - startx + 1: nx;
-    ny = domy == ndomy ? discretization.nx - starty + 1: ny;
+    if (domx < remainder_x) {
+        nx++;
+        startx = domx * nx;
+    } else {
+        startx = remainder_x * (nx + 1) + (domx - remainder_x) * nx;
+    }
+    if (domy < remainder_y) {
+        ny++;
+        starty = domy * ny;
+    } else {
+        starty = remainder_y * (ny + 1) + (domy - remainder_y) * ny;
+    }
     
     endx = startx + nx -1;
     endy = starty + ny -1;
@@ -68,7 +78,7 @@ void SubDomain::init(int mpi_rank, int mpi_size,
     N = nx*ny;
 
     rank = mpi_rank;
-    size = mpi_size;
+    size = mpi_size;   ny = discretization.nx / ndomy;
 }
 
 // print domain decomposition information to stdout
