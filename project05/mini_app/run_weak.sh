@@ -9,6 +9,7 @@
 #SBATCH --constraint=EPYC_7763         # Select node with CPU
 #SBATCH --time=10:00:00                # Wall clock time limit
 
+module load gcc openmpi
 module list
 
 OUTPUT_FILE="mpi-weak_time.csv"
