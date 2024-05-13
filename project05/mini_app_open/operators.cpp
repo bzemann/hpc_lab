@@ -35,7 +35,7 @@ void diffusion(data::Field const &s_old, data::Field const &s_new,
 
 // assumption: data is double data, a cacheline has 64 bytes <=> 8 doubles
 // assure that 2 threads cannot share the same cacheline
-  #pragma omp parallel for collapse(2) schedule(static, 8) 
+  #pragma omp parallel for collapse(2)  
   for (int i = 1; i < iend; i++) {
     for (int j = 1; j < jend; j++) {
       f(i, j) = -(4. + alpha) * s_new(i, j) + s_new(i - 1, j) +
@@ -47,7 +47,7 @@ void diffusion(data::Field const &s_old, data::Field const &s_new,
   // east boundary
   {
     int i = nx - 1;
-    #pragma omp parallel for schedule(dynamic)
+    #pragma omp parallel for 
     for (int j = 1; j < jend; j++) {
       f(i, j) = -(4. + alpha) * s_new(i, j) + s_new(i - 1, j) + bndE[j] +
                 s_new(i, j - 1) + s_new(i, j + 1) + alpha * s_old(i, j) +
@@ -58,7 +58,7 @@ void diffusion(data::Field const &s_old, data::Field const &s_new,
   // west boundary
   {
     int i = 0;
-    #pragma omp parallel for schedule(dynamic)
+    #pragma omp parallel for 
     for (int j = 1; j < jend; j++) {
       f(i, j) = -(4. + alpha) * s_new(i, j) + bndW[j] + s_new(i + 1, j) +
                 s_new(i, j - 1) + s_new(i, j + 1) + alpha * s_old(i, j) +
@@ -78,7 +78,7 @@ void diffusion(data::Field const &s_old, data::Field const &s_new,
     }
 
     // north boundary
-    #pragma omp parallel for schedule(dynamic)
+    #pragma omp parallel for 
     for (int i = 1; i < iend; i++) {
       f(i, j) = -(4. + alpha) * s_new(i, j) + s_new(i - 1, j) +
                 s_new(i + 1, j) + s_new(i, j - 1) + bndN[i] +
@@ -105,7 +105,7 @@ void diffusion(data::Field const &s_old, data::Field const &s_new,
     }
 
     // south boundary
-    #pragma omp parallel for schedule(dynamic)
+    #pragma omp parallel for 
     for (int i = 1; i < iend; i++) {
       f(i, j) = -(4. + alpha) * s_new(i, j) + s_new(i - 1, j) +
                 s_new(i + 1, j) + bndS[i] + s_new(i, j + 1) +
