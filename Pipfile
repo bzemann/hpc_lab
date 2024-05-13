@@ -8,6 +8,7 @@ python-lsp-server = "*"
 numpy = "*"
 matplotlib = "*"
 pandas = "*"
+mpi4py = "*"
 
 [dev-packages]
 

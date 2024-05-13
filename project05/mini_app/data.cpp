@@ -32,7 +32,7 @@ void SubDomain::init(int mpi_rank, int mpi_size,
                      Discretization& discretization) {
     //determine the number of sub-domains in the x and y dimensions
     //       using MPI_Dims_create
-    int dims[2] = {discretization.nx, discretization.nx};
+    int dims[2] = {0, 0};
     MPI_Dims_create(mpi_size, 2, dims);
     ndomy = dims[0];
     ndomx = dims[1];
@@ -50,7 +50,7 @@ void SubDomain::init(int mpi_rank, int mpi_size,
 
     //set neighbours for all directions using MPI_Cart_shift
     MPI_Cart_shift(this->comm_cart, 0, -1, &(this->neighbour_north), &(this->neighbour_south));
-    MPI_Cart_shift(this->comm_cart, 0, -1, &(this->neighbour_west), &(this->neighbour_east));
+    MPI_Cart_shift(this->comm_cart, 1, -1, &(this->neighbour_west), &(this->neighbour_east));
 
     // get bounding box
     nx = discretization.nx / ndomx;
