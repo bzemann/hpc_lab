@@ -39,8 +39,11 @@ def plot_data(file_path, title_suffix):
     ax.legend(title="Base Size")
 
     ax.grid(True, which='both', linestyle='--', linewidth=0.5)    
+
+    plt.tight_layout(pad=2)  # Reduce padding
+    plt.subplots_adjust(left=0.15, right=0.95, top=0.9, bottom=0.1)  # Adjust margins to better center the plot
     
-    plt.savefig(f'plots/weak_{title_suffix}.pdf', format='pdf', dpi=300)
+    plt.savefig(f'plots/weak_{title_suffix}.svg', format='svg')
     plt.close()
 
 mpi_file_path = 'res/mpi/mpi-weak_time.csv'

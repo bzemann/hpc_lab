@@ -46,6 +46,9 @@ for size in sizes:
     ax.grid(True, which='both', linestyle='--', linewidth=0.5)
 
     ax.legend()
+
+    plt.tight_layout(pad=2)  # Reduce padding
+    plt.subplots_adjust(left=0.15, right=0.95, top=0.9, bottom=0.1)  # Adjust margins to better center the plot
     
-    plt.savefig(f'plots/strong_size_{size}.pdf')
+    plt.savefig(f'plots/strong_{size}.svg', format='svg')
     plt.close()

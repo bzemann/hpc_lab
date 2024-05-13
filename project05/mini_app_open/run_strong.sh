@@ -28,8 +28,10 @@ for s in "${sizes[@]}"; do
     echo "num threads: $t"
     for repeat in {1..20}; do
       output=$(./main $s 100 0.005)
-      time=$(echo "$output" | grep -oE 'simulation took [0-9]+\.[0-9]+ seconds' | grep -oE '[0-9]+\.[0-9]+')      
-      echo "$s,$t,$time" >> "$OUTPUT_FILE"
+      if [ "repeat" -ne 1 ]; then
+        time=$(echo "$output" | grep -oE 'simulation took [0-9]+\.[0-9]+ seconds' | grep -oE '[0-9]+\.[0-9]+')      
+        echo "$s,$t,$time" >> "$OUTPUT_FILE"
+      fi
     done
   done
 done
