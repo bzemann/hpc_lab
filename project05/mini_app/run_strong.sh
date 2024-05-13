@@ -1,7 +1,7 @@
 #!/bin/bash -l
 
 #SBATCH --nodes=64
-#SBATCH --ntasks64
+#SBATCH --ntasks=64
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=1
 #SBATCH --output=fisher_mpi-strong.out # Output file (default: slurm-%j.out)
