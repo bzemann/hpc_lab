@@ -6,6 +6,7 @@ from mpi4py import MPI # MPI_Init and MPI_Finalize automatically called
 import numpy as np
 import sys
 import time
+from typing import List, Tuple, Dict
 
 # some parameters
 MANAGER = 0       # rank of manager
@@ -26,10 +27,36 @@ def manager(comm, tasks):
 
     Returns
     -------
-    ... ToDo ...
-    """
+    a list of completed tasks
 
-    pass
+    """
+    size = comm.Get_size()
+    n_tasks = len(tasks)
+    n_finished_tasks = 0
+    finished_tasks = []
+    TasksDoneByWorker = np.zeros(size, dtype=int)
+
+    print(len(tasks))
+
+    for i in range(1,size):
+        if tasks:
+            comm.send(tasks.pop(), dest=i, tag=TAG_TASK)
+
+    while n_finished_tasks < n_tasks:
+        if comm.iprobe(source=MPI.ANY_SOURCE, tag=TAG_TASK_DONE):
+            worker, finished_task = comm.recv(source=MPI.ANY_SOURCE, tag=TAG_TASK_DONE)
+            finished_tasks.append(finished_task)
+            TasksDoneByWorker[worker] += 1
+            n_finished_tasks += 1
+            if tasks:
+                comm.send(tasks.pop(), dest=worker, tag=TAG_TASK)
+
+    for i in range(1, size):
+        comm.send(None, dest=i, tag=TAG_DONE)
+
+    return finished_tasks, TasksDoneByWorker
+
+
 
 def worker(comm):
     """
@@ -40,7 +67,17 @@ def worker(comm):
     comm : mpi4py.MPI communicator
         MPI communicator
     """
-    pass
+    my_rank = comm.Get_rank()
+    while True:
+        if comm.iprobe(source=MANAGER, tag=TAG_DONE):
+            comm.recv(source=MANAGER, tag=TAG_DONE)
+            break
+        elif comm.iprobe(source=MANAGER, tag=TAG_TASK):
+            task = comm.recv(source=MANAGER, tag=TAG_TASK)
+            task.do_work()
+            comm.send([my_rank, task], dest=MANAGER, tag=TAG_TASK_DONE)
+    
+
 
 def readcmdline(rank):
     """
@@ -83,7 +120,7 @@ def readcmdline(rank):
     return nx, ny, ntasks
 
 
-if __name__ == "__main__":
+if _name_ == "_main_":
 
     # get COMMON WORLD communicator, size & rank
     comm    = MPI.COMM_WORLD
@@ -107,11 +144,14 @@ if __name__ == "__main__":
     y_max  = +1.5
     M = mandelbrot(x_min, x_max, nx, y_min, y_max, ny, ntasks)
     tasks = M.get_tasks()
-    for task in tasks:
-        task.do_work()
-    m = M.combine_tasks(tasks)
-    plt.imshow(m.T, cmap="gray", extent=[x_min, x_max, y_min, y_max])
-    plt.savefig("mandelbrot.png")
+    if my_rank == MANAGER:
+        tasks, TasksDoneByWorker = manager(comm, tasks)
+        m = M.combine_tasks(tasks)
+        
+        plt.imshow(m.T, cmap="gray", extent=[x_min, x_max, y_min, y_max])
+        plt.savefig("mandelbrot.png")
+    else:
+        worker(comm)
 
     # stop timer
     timespent += time.perf_counter()
