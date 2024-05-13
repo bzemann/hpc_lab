@@ -34,7 +34,7 @@ for run in "${runs[@]}"; do
     export OMP_NUM_THREADS
 
     for repeat in {1..21}; do
-      output=$(mpirun -np $p ./main $adjusted_size 100 0.005)
+      output=$(mpirun -np $proc_count ./main $adjusted_size 100 0.005)
       
       # Extracting time information
       time=$(echo "$output" | grep -oE 'simulation took [0-9]+\.[0-9]+ seconds' | grep -oE '[0-9]+\.[0-9]+')      
